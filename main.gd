@@ -29,12 +29,14 @@ func parse_website(text:String):
 	var is_title = false
 	var is_paragraph = false
 	var is_link = false
+	var is_dd = false
 
 	for l in tokenize(body_content):
 		if "</a>" in l.to_lower():
-			l = "[/url][/color]"
-			final_rich_text += l
-			is_link = false
+			if is_link:
+				l = "[/url][/color]"
+				final_rich_text += l
+				is_link = false
 		elif "</" in l and ">" in l:
 			# Closing tags
 			if is_title:
@@ -65,12 +67,27 @@ func parse_website(text:String):
 				l = "[color='00abc7'][url]"
 				is_link = true
 				final_rich_text += l
+			if "dt" in l.to_lower():
+				l = "\n"
+				final_rich_text += l
+			if "dd" in l.to_lower():
+				l = "\n[indent]"
+				final_rich_text += l
+				is_dd = true
 
 		else:
 			# Regular text
 			final_rich_text += l
+
+		if is_dd:
+			l = "[/indent]"
+			final_rich_text += l
+			is_dd = false
 	
-	var n = RichTextLabel.new()
+	# Ugly removing of empty white characters at the start of lines:
+	final_rich_text = final_rich_text.replace("\n ", "\n") # this probably should trim start of lines instead of this, but I can do it later™
+
+	var n = %RichTextLabel
 	n.fit_content = true
 	n.bbcode_enabled = true
 	n.selection_enabled = true
