@@ -24,6 +24,14 @@ grow_vertical = 2
 [node name="Navigation" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
+[node name="ButtonBack" type="Button" parent="VBoxContainer/Navigation"]
+layout_mode = 2
+text = "<"
+
+[node name="ButtonForward" type="Button" parent="VBoxContainer/Navigation"]
+layout_mode = 2
+text = ">"
+
 [node name="Url" type="LineEdit" parent="VBoxContainer/Navigation"]
 unique_name_in_owner = true
 layout_mode = 2

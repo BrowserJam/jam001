@@ -1,16 +1,27 @@
 extends Control
 
+var start_url = "http://info.cern.ch/hypertext/WWW/TheProject.html"
+
+var history = [start_url]
+var current_history_index = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%Url.grab_focus()
-	%Url.text = "http://info.cern.ch/hypertext/WWW/TheProject.html"
+	%Url.text = start_url
 	#%Url.text_submitted.connect(func(new_text:String):
 	#	request_url(new_text)
 	#	)
+	$VBoxContainer/Navigation/ButtonBack.pressed.connect(func():
+		if current_history_index > 0:
+			current_history_index -= 1
+			request_url(history[current_history_index])
+		)
 
-	#$HTTPRequest.request_completed.connect(self._http_request_completed)
+	$HTTPRequest.request_completed.connect(self._http_request_completed)
 	#request_url(%Url.text)
+
+	%RichTextLabel.meta_clicked.connect(self._on_link_clicked)
 
 	# EXAMPLE
 	var file_path = "res://example.txt"
@@ -64,7 +75,8 @@ func parse_website(text:String):
 				l = "\n"
 				final_rich_text += l
 			if "a " in l.to_lower():
-				l = "[color='00abc7'][url]"
+				var attributes = parse_attributes(l)
+				l = "[color='00abc7'][url='" + attributes['href'] + "']"
 				is_link = true
 				final_rich_text += l
 			if "dt" in l.to_lower():
@@ -95,7 +107,6 @@ func parse_website(text:String):
 	n.autowrap_mode = TextServer.AUTOWRAP_WORD
 	n.text = final_rich_text
 	n.set("size_flags_horizontal", Control.SIZE_EXPAND_FILL)
-	%Content.add_child(n) # Add the label to the VBoxContainer
 
 
 	print(final_rich_text)
@@ -103,15 +114,25 @@ func parse_website(text:String):
 
 
 func request_url(path: String) -> void:
+	# History
+	if path != history[current_history_index]:
+		history = history.slice(0, current_history_index + 1)
+		history.append(path)
+		current_history_index += 1
+	%Url.text = path
+	
 	# Clear the content before making a new request
-	for c in %Content.get_children():
-		c.queue_free()
+	%RichTextLabel.text = ""
 	var error = $HTTPRequest.request(path)
 	if error != OK:
 		push_error("An error occurred in the HTTP request.")
 
 
-func _http_request_completed(_result, _response_code, _headers, body):
+func _http_request_completed(result, response_code, headers, body):
+	print("Request completed")
+	print("Response code:", response_code)
+	print("Result:", result)
+	print("Headers:", headers)
 	parse_website(body.get_string_from_utf8())
 
 
@@ -181,3 +202,61 @@ func tokenize(html_string: String) -> Array:
 		lines.append(current_line)
 
 	return lines
+
+
+func _on_link_clicked(meta: String) -> void:
+	print("Meta clicked:", meta)
+	var target = "http://info.cern.ch/hypertext/WWW/" + meta
+	request_url(target)
+
+
+func parse_attributes(tag_string: String) -> Dictionary:
+	var result = {}
+	
+	# Remove < and > from the tag
+	tag_string = tag_string.strip_edges().trim_prefix("<").trim_suffix(">")
+	
+	# Split the tag into parts
+	var parts = tag_string.split(" ")
+	
+	# The first part is the tag name
+	if parts.size() > 0:
+		result["tag_name"] = parts[0].to_lower()
+	
+	# Process each attribute
+	var current_key = ""
+	var in_quote = false
+	var quote_char = ''
+	
+	for part in parts.slice(1):  # Start from index 1 to skip the tag name
+		if "=" in part and not in_quote:
+			var key_value = part.split("=", true, 1)  # Split on first '=' only
+			current_key = key_value[0].to_lower()
+			var value = key_value[1].strip_edges()
+			
+			if value.begins_with("\"") or value.begins_with("'"):
+				in_quote = true
+				quote_char = value[0]
+				value = value.substr(1)
+			
+			if value.ends_with(quote_char):
+				in_quote = false
+				value = value.substr(0, value.length() - 1)
+			
+			if not in_quote:
+				result[current_key] = value
+			else:
+				result[current_key] = value + " "
+		elif in_quote:
+				if part.ends_with(quote_char):
+					in_quote = false
+					result[current_key] += part.substr(0, part.length() - 1)
+				else:
+					result[current_key] += part + " "
+	
+	# Trim any trailing spaces from attribute values
+	for key in result.keys():
+		if typeof(result[key]) == TYPE_STRING:
+			result[key] = result[key].strip_edges()
+	
+	return result
