@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c23v63uqc8ll5"]
+[gd_scene load_steps=3 format=3 uid="uid://c23v63uqc8ll5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_eogol"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6g7u"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -32,10 +34,19 @@ placeholder_text = "url"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Content" type="HFlowContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="Content" type="MarginContainer" parent="VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/ScrollContainer/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_a6g7u")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
