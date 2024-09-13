@@ -28,9 +28,14 @@ func parse_website(text:String):
 	var final_rich_text :String = ""
 	var is_title = false
 	var is_paragraph = false
+	var is_link = false
 
 	for l in tokenize(body_content):
-		if "</" in l and ">" in l:
+		if "</a>" in l.to_lower():
+			l = "[/url][/color]"
+			final_rich_text += l
+			is_link = false
+		elif "</" in l and ">" in l:
 			# Closing tags
 			if is_title:
 				l = "[/b][/font_size]\n\n" 
@@ -40,6 +45,7 @@ func parse_website(text:String):
 				l = "\n"
 				final_rich_text += l
 				is_paragraph = false
+			
 			
 		elif "<" in l and ">" in l:
 			# Starting tags
@@ -55,6 +61,11 @@ func parse_website(text:String):
 				is_paragraph = false
 				l = "\n"
 				final_rich_text += l
+			if "a " in l.to_lower():
+				l = "[color='00abc7'][url]"
+				is_link = true
+				final_rich_text += l
+
 		else:
 			# Regular text
 			final_rich_text += l
@@ -62,6 +73,7 @@ func parse_website(text:String):
 	var n = RichTextLabel.new()
 	n.fit_content = true
 	n.bbcode_enabled = true
+	n.selection_enabled = true
 	n.set('theme_override_colors/default_color', Color(0, 0, 0))
 	n.autowrap_mode = TextServer.AUTOWRAP_WORD
 	n.text = final_rich_text
@@ -124,13 +136,13 @@ func tokenize(html_string: String) -> Array:
 	for c in html_string:
 		if c == '<' and not in_quote:
 			if current_line.strip_edges() != "":
-				lines.append(current_line.strip_edges())
+				lines.append(current_line)
 				current_line = ""
 			in_tag = true
 			current_line += c
 		elif c == '>' and not in_quote:
 			current_line += c
-			lines.append(current_line.strip_edges())
+			lines.append(current_line)
 			current_line = ""
 			in_tag = false
 		elif c in ['"', "'"] and in_tag:
@@ -142,13 +154,13 @@ func tokenize(html_string: String) -> Array:
 			current_line += c
 		elif c == '\n' and not in_tag:
 			if current_line.strip_edges() != "":
-				lines.append(current_line.strip_edges())
+				lines.append(current_line)
 				current_line = ""
 		else:
 			current_line += c
 
 	# Add any remaining content
 	if current_line.strip_edges() != "":
-		lines.append(current_line.strip_edges())
+		lines.append(current_line)
 
 	return lines
