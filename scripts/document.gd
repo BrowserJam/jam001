@@ -4,6 +4,7 @@ extends Node2D
 @export var http_request: HTTPRequest
 @export var address_box: TextEdit
 @export var back_button: Button
+@export var accumulate_mode_toggle: CheckBox
 
 var current_page: String
 var history: Array[String] = []
@@ -65,8 +66,9 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	var layout_tree = Layout.build_layout_tree(dom_tree)
 	layout_tree.layout(1000)
 
-	for child in get_children():
-		remove_child(child)
+	if not accumulate_mode_toggle.button_pressed:
+		for child in get_children():
+			remove_child(child)
 	_create_block(self, layout_tree)
 
 func _load_page(address: String):
