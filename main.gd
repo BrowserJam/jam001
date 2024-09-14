@@ -19,15 +19,15 @@ func _ready() -> void:
 		)
 
 	$HTTPRequest.request_completed.connect(self._http_request_completed)
-	#request_url(%Url.text)
 
 	%RichTextLabel.meta_clicked.connect(self._on_link_clicked)
 
+	request_url(%Url.text)
 	# EXAMPLE
-	var file_path = "res://example.txt"
-	var file = FileAccess.open(file_path, FileAccess.READ).get_as_text()
-	print(file)
-	parse_website(file)
+	#var file_path = "res://example.txt"
+	#var file = FileAccess.open(file_path, FileAccess.READ).get_as_text()
+	#print(file)
+	#parse_website(file)
 	
 
 func parse_website(text:String):
@@ -50,6 +50,7 @@ func parse_website(text:String):
 	var is_paragraph = false
 	var is_link = false
 	var is_dd = false
+	var is_ul = false
 
 	for l in tokenize(body_content):
 		if "</a>" in l.to_lower():
@@ -57,10 +58,14 @@ func parse_website(text:String):
 				l = "[/url][/color]"
 				final_rich_text += l
 				is_link = false
+		elif "</ul>" in l.to_lower():
+			if is_ul:
+				l = "[/ul]"
+				is_ul = false
 		elif "</" in l and ">" in l:
 			# Closing tags
 			if is_title:
-				l = "[/b][/font_size]\n\n" 
+				l = "[/b][/font_size]\n" 
 				final_rich_text += l
 				is_title = false
 			if is_paragraph:
@@ -72,29 +77,33 @@ func parse_website(text:String):
 		elif "<" in l and ">" in l:
 			# Starting tags
 			if "h1" in l.to_lower():
+				final_rich_text += "\n[font_size=30][b]"
 				is_title = true
-				l = "[font_size=30][b]"
-				final_rich_text += l
-			if "<p>" in l.to_lower():
+			elif "h2" in l.to_lower():
+				final_rich_text += "\n\n[font_size=25][b]"
+				is_title = true
+			elif "h3" in l.to_lower():
+				final_rich_text += "\n\n[font_size=20][b]"
+				is_title = true
+			elif "<p>" in l.to_lower():
+				final_rich_text += "\n\n"
 				is_paragraph = true
-				l = "\n\n"
-				final_rich_text += l
-			if "dl" in l.to_lower():
+			elif "<dl>" in l.to_lower():
+				final_rich_text += "\n"
 				is_paragraph = false
-				l = "\n"
-				final_rich_text += l
-			if "a " in l.to_lower():
+			elif "<ul>" in l.to_lower():
+				final_rich_text += "[ul]"
+				is_ul = true
+			elif "<li>" in l.to_lower():
+				final_rich_text += "\n"
+			elif "a " in l.to_lower():
 				var attributes = parse_attributes(l)
-				
-				l = "[color='00abc7'][url='" + attributes.get('href', '#') + "']"
+				final_rich_text += "[color='0000ff'][url='" + attributes.get('href', '#') + "']"
 				is_link = true
-				final_rich_text += l
-			if "dt" in l.to_lower():
-				l = "\n"
-				final_rich_text += l
-			if "dd" in l.to_lower():
-				l = "\n[indent]"
-				final_rich_text += l
+			elif "dt" in l.to_lower():
+				final_rich_text += "\n"
+			elif "dd" in l.to_lower():
+				final_rich_text += "\n[indent]"
 				is_dd = true
 
 		else:
