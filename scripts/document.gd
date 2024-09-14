@@ -64,7 +64,6 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 	var parser = Parser.new(source)
 	var dom_tree = DOM.build_dom_tree(parser)
-	dom_tree.debug_print()
 	var layout_tree = Layout.build_layout_tree(dom_tree)
 	layout_tree.layout(1000)
 	_create_block(self, layout_tree)
@@ -100,6 +99,7 @@ func _on_back_pressed():
 	_load_page(address)
 
 func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	current_page = address_box.text
 	http_request.request_completed.connect(_on_request_completed)
 	back_button.pressed.connect(_on_back_pressed)

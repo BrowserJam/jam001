@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://qs3uqv4jnev3"]
+[gd_scene load_steps=10 format=3 uid="uid://qs3uqv4jnev3"]
 
 [ext_resource type="Script" path="res://scripts/physics_drag.gd" id="1_i3q73"]
 [ext_resource type="Script" path="res://scripts/document.gd" id="1_t74iv"]
 [ext_resource type="PackedScene" uid="uid://hoo8ttycwy87" path="res://explosion.tscn" id="2_no6u6"]
 [ext_resource type="Script" path="res://scripts/toggle_gravity.gd" id="3_loy23"]
+[ext_resource type="Script" path="res://scripts/walking_mode_button.gd" id="5_rjbc2"]
+[ext_resource type="PackedScene" uid="uid://lgje7ym77d0" path="res://document3d.tscn" id="6_yrkbv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ok5r2"]
 
@@ -70,7 +72,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Godot Browser"
+text = "The Physical Web"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Control/PanelContainer/VBoxContainer"]
@@ -125,6 +127,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 disabled = true
 text = "Back"
+
+[node name="HSeparator4" type="HSeparator" parent="Control/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15.185)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/PanelContainer/VBoxContainer" node_paths=PackedStringArray("address_box")]
+layout_mode = 2
+text = "Walking Mode"
+script = ExtResource("5_rjbc2")
+walking_scene = ExtResource("6_yrkbv")
+address_box = NodePath("../TextEdit")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
