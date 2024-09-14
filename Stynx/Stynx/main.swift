@@ -7,13 +7,10 @@
 
 import Foundation
 
-print("Hello, World!")
-
 do {
-    let (response, data) = try await load_url(URL(string: "http://info.cern.ch/hypertext/WWW/TheProject.html")!)
-    print("Got a response!")
-    print("Metadata:", response)
-    print("Contents:\n", data ?? "*empty*")
+    let url = URL(string: "http://info.cern.ch/hypertext/WWW/TheProject.html")!
+    let text = try await load_text(url: url)
+    print(text)
 } catch {
     print("THING WENT WRONG:", error)
 }
