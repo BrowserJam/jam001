@@ -67,12 +67,14 @@ tag* get_sibling_by_name(tag* t, const char* name)
 	return NULL;
 }
 
-tag* get_child_by_name(tag* t, const char* name, ...)
+// Get a child of 't' by name, if extant. Optionally, supply a VA_LIST of names as the nested children to traverse.
+tag* get_child_by_name(tag* t, int depth, const char* name, ...)
 {
+	if (depth < 1) return NULL;
 	va_list args;
 	va_start(args, name);
 	const char* next_name = name;
-	while (t && t->first_child && next_name)
+	while (t && t->first_child && depth-- > 1)
 	{
 		t = get_sibling_by_name(t->first_child, next_name);
 		if (!t) return NULL;
@@ -80,6 +82,38 @@ tag* get_child_by_name(tag* t, const char* name, ...)
 	}
 	va_end(args);
 	return t;
+}
+
+// Get the next tag by order of iteration:
+// 1. If 't' has a child, return a pointer to it
+// 2. If 't' has a next sibling, return a pointer to it
+// 3. Refer to the parent of 't' and return a pointer to its next sibling. Do this step recursively.
+// 4. If we run out of parents to search for siblings of, return NULL
+tag* next_tag(tag* t)
+{
+	if (!t) return NULL;
+	if (t->first_child) return t->first_child;
+	while (t) {
+		if (t->next_sibling) return t->next_sibling;
+		t = t->parent;
+	}
+	return NULL;
+}
+
+// Return the previous tag by order of iteration:
+// 1. If 't' has a parent and 't' is the first child, return the parent of 't'
+// 2. Iterate through the children of 't' parent until the tag whose next sibling is 't'
+// 3. Otherwise, return NULL
+tag* prev_tag(tag* t)
+{
+	if (!t || !t->parent) return NULL;
+	if (t == t->parent->first_child) return t->parent;
+	tag* prev_tag = t->parent->first_child;
+	while (prev_tag) {
+		if (t == prev_tag->next_sibling) return prev_tag;
+		prev_tag = prev_tag->next_sibling;
+	}
+	return NULL;
 }
 
 void parseHTML(const char* input)
