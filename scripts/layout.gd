@@ -11,6 +11,10 @@ const BLOCK_NODES = [
 	'dd',
 ]
 
+const NON_LAYOUT_NODES = [
+	'title',
+]
+
 static func _text_size(text: String, style: Style) -> Vector2:
 	var font = Label.new().get_theme_default_font()
 	return font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, style.font_size)
@@ -138,6 +142,9 @@ static func _build_layout_tree_block(dom_node: DOM.DomNode) -> BlockNode:
 			block.block_children.append(_build_layout_tree_block(child))
 			continue
 
+		if child.tag_name in NON_LAYOUT_NODES:
+			continue
+
 		if child.tag_name == 'TEXT' and len(child.text.strip_edges()) == 0:
 			continue # Ignore whitespace text.
 		block.inline_children.append(InlineNode.new(child))
@@ -149,8 +156,7 @@ static func _build_layout_tree_block(dom_node: DOM.DomNode) -> BlockNode:
 
 static func build_layout_tree(dom: DOM.DomNode) -> BlockNode:
 	var body = dom.find('body')
-	assert(body != null)
+	if body == null:
+		body = dom
 
-	var html = BlockNode.new(dom)
-	html.block_children.append(_build_layout_tree_block(body))
-	return html
+	return _build_layout_tree_block(body)
