@@ -51,6 +51,7 @@ func parse_website(text:String):
 	var is_link = false
 	var is_dd = false
 	var is_ul = false
+	var is_italics = false
 
 	for l in tokenize(body_content):
 		if "</a>" in l.to_lower():
@@ -72,6 +73,10 @@ func parse_website(text:String):
 				l = "\n"
 				final_rich_text += l
 				is_paragraph = false
+			if is_italics:
+				l = "[/i]"
+				final_rich_text += l
+				is_italics = false
 			
 			
 		elif "<" in l and ">" in l:
@@ -100,11 +105,14 @@ func parse_website(text:String):
 				var attributes = parse_attributes(l)
 				final_rich_text += "[color='0000ff'][url='" + attributes.get('href', '#') + "']"
 				is_link = true
-			elif "dt" in l.to_lower():
+			elif "<dt>" in l.to_lower():
 				final_rich_text += "\n"
-			elif "dd" in l.to_lower():
+			elif "<dd>" in l.to_lower():
 				final_rich_text += "\n[indent]"
 				is_dd = true
+			elif "<address>" in l.to_lower():
+				final_rich_text += "\n[i]"
+				is_italics = true
 
 		else:
 			# Regular text
