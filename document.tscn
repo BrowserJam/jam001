@@ -26,12 +26,13 @@ document = NodePath("Document")
 address_box = NodePath("Control/PanelContainer/VBoxContainer/TextEdit")
 enable_links = NodePath("Control/PanelContainer/VBoxContainer/CheckBox2")
 
-[node name="Document" type="Node2D" parent="." node_paths=PackedStringArray("http_request", "address_box", "back_button")]
+[node name="Document" type="Node2D" parent="." node_paths=PackedStringArray("http_request", "address_box", "back_button", "accumulate_mode_toggle")]
 position = Vector2(10, 10)
 script = ExtResource("1_t74iv")
 http_request = NodePath("../HTTPRequest")
 address_box = NodePath("../Control/PanelContainer/VBoxContainer/TextEdit")
 back_button = NodePath("../Control/PanelContainer/VBoxContainer/HBoxContainer/Button2")
+accumulate_mode_toggle = NodePath("../Control/PanelContainer/VBoxContainer/CheckBox3")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 1080)
@@ -99,6 +100,10 @@ script = ExtResource("3_loy23")
 layout_mode = 2
 button_pressed = true
 text = "Enable Links"
+
+[node name="CheckBox3" type="CheckBox" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Accumulate Mode"
 
 [node name="HSeparator3" type="HSeparator" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
