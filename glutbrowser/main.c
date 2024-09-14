@@ -15,14 +15,19 @@
 
 // TODO 1-char tag names are broken
 // TODO spaces in "Content" are broken
-const char* test_html = "<html><head></head><body><h1>This is a heading!</h1><p>This is a paragraph!</p></body></html>";
+const char* test_html = "<html><head></head><body>"
+	"<h1>This is a heading h1!</h1>"
+	"<h2>This is a heading h2!</h2>"
+	"<h3>This is a heading h3!</h3>"
+	"<p>This is a paragraph!</p>"
+"</body></html>";
 
 unsigned int modstate;
 int cur_key = -1;
 int cur_skey = -1;
 int win_width, win_height;
 
-void draw_text(int x, int y, const char* str)
+void draw_text(int x, int y, int font, rgb *color, const char* str)
 {
 	int line_height = 24;
 	glRasterPos2i(x, y);
@@ -33,7 +38,8 @@ void draw_text(int x, int y, const char* str)
 			str++;
 			continue;
 		}
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *str++);
+		glColor3f(((float)color->r) / 255.f, ((float)color->g) / 255.f, ((float)color->b) / 255.f);
+		glutBitmapCharacter(font, *str++);
 	}
 }
 
@@ -78,6 +84,7 @@ void display(void)
 {
 	char str[256];
 
+	glClearColor(((float)bg_color->r) / 255.f, ((float)bg_color->g) / 255.f, ((float)bg_color->b) / 255.f, 0.f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	strcpy(str, "Key:");
@@ -98,13 +105,13 @@ void display(void)
 			strcat(str, "  super");
 		}
 	}
-	draw_text(win_width / 3, 2 * win_height / 3, str);
+	draw_text(win_width * (3.f/4.f), 0, GLUT_BITMAP_TIMES_ROMAN_24, &black, str);
 
 	strcpy(str, "Special key: ");
 	if (cur_skey > 0) {
 		strcat(str, skeyname(cur_skey));
 	}
-	draw_text(win_width / 3, win_height / 3, str);
+	draw_text(win_width * (1.f/2.f), 0, GLUT_BITMAP_TIMES_ROMAN_24, &black, str);
 	
 	tag* body = get_child_by_name(&root_tag, 2, "html", "body");
 	tag* iter = body;
@@ -117,7 +124,8 @@ void display(void)
 	while (iter)
 	{
 		if (iter->content) {
-			draw_text(caret_x, caret_y, iter->content);
+			const style* s = get_default_style_by_name(iter->name);
+			draw_text(caret_x, caret_y, s->font, s->color, iter->content);
 			caret_y -= 24;
 		}
 		iter = next_tag(iter);
