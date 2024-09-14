@@ -9,9 +9,9 @@ var current_history_index = 0
 func _ready() -> void:
 	%Url.grab_focus()
 	%Url.text = start_url
-	#%Url.text_submitted.connect(func(new_text:String):
-	#	request_url(new_text)
-	#	)
+	%Url.text_submitted.connect(func(new_text:String):
+		request_url(new_text)
+		)
 	$VBoxContainer/Navigation/ButtonBack.pressed.connect(func():
 		if current_history_index > 0:
 			current_history_index -= 1
@@ -32,7 +32,12 @@ func _ready() -> void:
 
 func parse_website(text:String):
 	get_window().title = extract_tag_content(extract_tag_content(text, "HEADER"), "TITLE")
-	var body_content = extract_tag_content(text, "BODY").replace('\n', ' ')
+	var body_content = ""
+	if "<body" in text.to_lower():
+		body_content = extract_tag_content(text, "BODY").replace('\n', ' ')
+	else:
+		body_content = text
+
 	# print(body_content)
 	print(tokenize(body_content))
 
@@ -206,7 +211,28 @@ func tokenize(html_string: String) -> Array:
 
 func _on_link_clicked(meta: String) -> void:
 	print("Meta clicked:", meta)
-	var target = "http://info.cern.ch/hypertext/WWW/" + meta
+	var current_url = "http://info.cern.ch/hypertext/WWW/"
+	var target = current_url
+	if meta.begins_with("http://"):
+		target = meta
+	elif meta.begins_with("/"):
+		var domain = current_url.split("/")[0] + "//" + current_url.split("/")[2]
+		target = domain + meta
+	elif meta.begins_with("../"):
+		var path_parts = current_url.split("/")
+		var new_path_parts = []
+		for part in path_parts:
+			if part != "":
+				new_path_parts.append(part)
+		for _i in range(meta.count("../")):
+			if new_path_parts.size() > 0:
+				new_path_parts.pop_back()
+		target = "/".join(new_path_parts) + "/" + meta.trim_prefix("../")
+	else:
+		target = current_url + meta
+	# Ensure the target URL always has two '/' after 'http:'
+	if not target.begins_with("http://"):
+		target = target.replace("http:/", "http://")
 	request_url(target)
 
 
