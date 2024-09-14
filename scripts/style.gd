@@ -21,11 +21,13 @@ static func apply_default_style_for_element(tag_name: String, parent_style: Styl
 			style.margin_bottom = 20
 		'a':
 			style.text_color = Color.BLUE
-		'p', 'dl':
+		'p', 'dl', 'ul':
 			style.margin_top = 10
 			style.margin_bottom = 10
 		'dd':
 			style.margin_left = 40
+		'li':
+			style.margin_left = 20
 	return style
 
 var font_size: float = 16

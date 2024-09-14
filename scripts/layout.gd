@@ -6,9 +6,14 @@ const BLOCK_NODES = [
 	'body',
 	'h1',
 	'p',
+	'address',
+
 	'dl',
 	'dt',
 	'dd',
+	
+	'ul',
+	'li',
 ]
 
 const NON_LAYOUT_NODES = [

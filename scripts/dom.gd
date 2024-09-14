@@ -60,6 +60,8 @@ static func _should_auto_close(tag_name: String, top_of_stack: String) -> bool:
 		return true
 	if tag_name in DESCRIPTION_LIST_ITEM and top_of_stack in DESCRIPTION_LIST_ITEM:
 		return true
+	if tag_name == 'li' and top_of_stack == 'li':
+		return true
 	return false
 
 static func build_dom_tree(parser: Parser) -> DomNode:
