@@ -128,7 +128,7 @@ class BlockNode:
 			child.debug_print(indent + 1)
 
 static func _inline_children_to_block(block: BlockNode):
-	var inline_block = BlockNode.new(DOM.DomNode.new('INLINE', Style.new()))
+	var inline_block = BlockNode.new(DOM.DomNode.new('INLINE', {}, Style.new()))
 	inline_block.inline_children = block.inline_children
 	block.inline_children = []
 	block.block_children.append(inline_block)
