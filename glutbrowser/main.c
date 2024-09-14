@@ -6,6 +6,7 @@
 #include "htmlparser.h"
 #include "jsparser.h"
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,7 +15,7 @@
 
 // TODO 1-char tag names are broken
 // TODO spaces in "Content" are broken
-const char* test_html = "<html><head></head><body><h1>This is a heading\nThis is a second line</h1></body></html>";
+const char* test_html = "<html><head></head><body><h1>This is a heading!</h1><p>This is a paragraph!</p></body></html>";
 
 unsigned int modstate;
 int cur_key = -1;
@@ -105,8 +106,22 @@ void display(void)
 	}
 	draw_text(win_width / 3, win_height / 3, str);
 	
-	const tag* body = get_child_by_name(&root_tag, "html", "body", "h1");
-	draw_text(0, win_height - 24, body->content);
+	tag* body = get_child_by_name(&root_tag, 2, "html", "body");
+	tag* iter = body;
+
+	int caret_x = 0;
+	int caret_y = win_height - 24;
+
+	assert(prev_tag(next_tag(iter)) == iter && "Bad tree traversal");
+
+	while (iter)
+	{
+		if (iter->content) {
+			draw_text(caret_x, caret_y, iter->content);
+			caret_y -= 24;
+		}
+		iter = next_tag(iter);
+	}
 
 	glutSwapBuffers();
 }
