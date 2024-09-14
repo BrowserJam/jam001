@@ -31,7 +31,11 @@ func _ready() -> void:
 	
 
 func parse_website(text:String):
-	get_window().title = extract_tag_content(extract_tag_content(text, "HEADER"), "TITLE")
+	# Look if there is a <title> element somewhere in the text and set the window title to its content, and remove the tag and its context from it 
+	if "<title" in text.to_lower():
+		get_window().title = extract_tag_content(text, "TITLE")
+		text = text.replace(extract_tag_content(text, "TITLE"), "")	
+
 	var body_content = ""
 	if "<body" in text.to_lower():
 		body_content = extract_tag_content(text, "BODY").replace('\n', ' ')
@@ -81,7 +85,8 @@ func parse_website(text:String):
 				final_rich_text += l
 			if "a " in l.to_lower():
 				var attributes = parse_attributes(l)
-				l = "[color='00abc7'][url='" + attributes['href'] + "']"
+				
+				l = "[color='00abc7'][url='" + attributes.get('href', '#') + "']"
 				is_link = true
 				final_rich_text += l
 			if "dt" in l.to_lower():
