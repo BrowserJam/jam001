@@ -35,6 +35,11 @@ func parse_website(text:String):
 	if "<title" in text.to_lower():
 		get_window().title = extract_tag_content(text, "TITLE")
 		text = text.replace(extract_tag_content(text, "TITLE"), "")	
+	
+	# Strip all the <script> and <style> tags and their content
+	text = remove_everything_inside("script", text)
+	text = remove_everything_inside("style", text)
+
 
 	var body_content = ""
 	if "<body" in text.to_lower():
@@ -56,26 +61,22 @@ func parse_website(text:String):
 	for l in tokenize(body_content):
 		if "</a>" in l.to_lower():
 			if is_link:
-				l = "[/url][/color]"
-				final_rich_text += l
+				final_rich_text += "[/url][/color]"
 				is_link = false
 		elif "</ul>" in l.to_lower():
 			if is_ul:
-				l = "[/ul]"
+				final_rich_text += "[/ul]"
 				is_ul = false
 		elif "</" in l and ">" in l:
 			# Closing tags
 			if is_title:
-				l = "[/b][/font_size]\n" 
-				final_rich_text += l
+				final_rich_text += "[/b][/font_size]\n"
 				is_title = false
 			if is_paragraph:
-				l = "\n"
-				final_rich_text += l
+				final_rich_text += "\n"
 				is_paragraph = false
 			if is_italics:
-				l = "[/i]"
-				final_rich_text += l
+				final_rich_text += "[/i]"
 				is_italics = false
 			
 			
@@ -125,6 +126,9 @@ func parse_website(text:String):
 	
 	# Ugly removing of empty white characters at the start of lines:
 	final_rich_text = final_rich_text.replace("\n ", "\n") # this probably should trim start of lines instead of this, but I can do it later™
+	final_rich_text = final_rich_text.replace("\n\n\n", "\n\n")
+	# trim all the new lines at the start of the text
+	final_rich_text = final_rich_text.trim_prefix("\n")
 
 	var n = %RichTextLabel
 	n.fit_content = true
@@ -141,6 +145,9 @@ func parse_website(text:String):
 
 
 func request_url(path: String) -> void:
+	# If there is no "http" in the url, add it
+	if not path.begins_with("http"):
+		path = "http://" + path
 	# History
 	if path != history[current_history_index]:
 		history = history.slice(0, current_history_index + 1)
@@ -308,3 +315,15 @@ func parse_attributes(tag_string: String) -> Dictionary:
 			result[key] = result[key].strip_edges()
 	
 	return result
+
+
+func remove_everything_inside(tag: String, text: String) -> String:
+	var style_start = text.find("<" + tag)
+	while style_start != -1:
+		var style_end = text.find("</" + tag + ">", style_start)
+		if style_end != -1:
+			text = text.erase(style_start, style_end - style_start + "</>".length())
+		else:
+			break
+		style_start = text.find("<" + tag, style_start)
+	return text
