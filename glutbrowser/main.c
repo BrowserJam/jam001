@@ -14,7 +14,7 @@
 
 // TODO 1-char tag names are broken
 // TODO spaces in "Content" are broken
-const char* test_html = "<head></head><body><h1>This is a heading\nThis is a second line</h1></body>";
+const char* test_html = "<html><head></head><body><h1>This is a heading\nThis is a second line</h1></body></html>";
 
 unsigned int modstate;
 int cur_key = -1;
@@ -73,9 +73,6 @@ void skeyrelease(int key, int x, int y)
 	glutPostRedisplay();
 }
 
-// here temporarily
-char buf_content[128] = "";
-
 void display(void)
 {
 	char str[256];
@@ -107,8 +104,9 @@ void display(void)
 		strcat(str, skeyname(cur_skey));
 	}
 	draw_text(win_width / 3, win_height / 3, str);
-
-	draw_text(0, win_height - 24, buf_content);
+	
+	const tag* body = get_child_by_name(&root_tag, "html", "body", "h1");
+	draw_text(0, win_height - 24, body->content);
 
 	glutSwapBuffers();
 }
@@ -127,7 +125,7 @@ int main(int argc, char** argv)
 	glutSpecialFunc(skeypress);
 	glutSpecialUpFunc(skeyrelease);
 
-	parseHTML(test_html, buf_content);
+	parseHTML(test_html);
 	glutMainLoop();
 	return 0;
 }

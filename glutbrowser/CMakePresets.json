@@ -23,6 +23,13 @@
 	  "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
+    },
+    {
+      "name": "win-msvc-release",
+      "inherits": "win-msvc",
+	  "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     }
   ],
   "buildPresets": [
@@ -33,6 +40,10 @@
 	{
 	  "name": "win-msvc-debug",
 	  "configurePreset": "win-msvc-debug"
+	},
+	{
+	  "name": "win-msvc-release",
+	  "configurePreset": "win-msvc-release"
 	}
   ]
 }
