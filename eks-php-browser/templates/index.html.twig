@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ek's PHP Browser</title>
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <img src="{{ image }}" usemap="#areas"/>
+    <map name="areas">
+        {% for area in areas %}
+            <area
+                shape="rect"
+                coords="{{ area.x1 }},{{ area.y1 }},{{ area.x2 }},{{ area.y2 }}"
+                alt="{{ area.alt }}"
+                href="{{ area.href }}"
+            />
+        {% endfor %}
+    </map>
+</body>
+</html>
