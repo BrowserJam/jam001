@@ -1,0 +1,658 @@
+[gd_scene format=3 uid="uid://qs3uqv4jnev3"]
+
+[node name="Root" type="Node"]
+
+[node name="Document" type="Node" parent="."]
+
+[node name="root-685" type="Control" parent="Document"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 621.5
+offset_bottom = 646.0
+
+[node name="body-903" type="Control" parent="Document/root-685"]
+anchors_preset = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 621.5
+offset_bottom = 646.0
+
+[node name="h1-864" type="Control" parent="Document/root-685/body-903"]
+anchors_preset = 0
+offset_top = 20.0
+offset_right = 240.5
+offset_bottom = 62.0
+
+[node name="TEXT-604" type="Label" parent="Document/root-685/body-903/h1-864"]
+layout_mode = 0
+offset_right = 239.0
+offset_bottom = 42.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "World Wide Web"
+
+[node name="INLINE-563" type="Control" parent="Document/root-685/body-903"]
+anchors_preset = 0
+offset_top = 82.0
+offset_right = 183.5
+offset_bottom = 128.0
+
+[node name="TEXT-924" type="Label" parent="Document/root-685/body-903/INLINE-563"]
+layout_mode = 0
+offset_right = 304.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "The WorldWideWeb (W3) is a wide-area"
+
+[node name="a-151" type="Label" parent="Document/root-685/body-903/INLINE-563"]
+layout_mode = 0
+offset_left = 305.5
+offset_right = 399.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "hypermedia"
+
+[node name="TEXT-182" type="Label" parent="Document/root-685/body-903/INLINE-563"]
+layout_mode = 0
+offset_left = 401.0
+offset_right = 963.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "information retrieval initiative aiming to give universal access to a large "
+
+[node name="TEXT-297" type="Label" parent="Document/root-685/body-903/INLINE-563"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 182.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "universe of documents."
+
+[node name="p-527" type="Control" parent="Document/root-685/body-903"]
+anchors_preset = 0
+offset_top = 138.0
+offset_right = 616.5
+offset_bottom = 184.0
+
+[node name="TEXT-587" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_right = 748.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Everything there is online about W3 is linked directly or indirectly to this document, including an"
+
+[node name="a-34" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 749.5
+offset_right = 902.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "executive summary"
+
+[node name="TEXT-340" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 904.0
+offset_right = 954.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "of the "
+
+[node name="TEXT-529" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 59.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "project,"
+
+[node name="a-202" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 60.5
+offset_top = 23.0
+offset_right = 152.5
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Mailing lists"
+
+[node name="TEXT-45" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 23.0
+offset_right = 159.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-391" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 160.5
+offset_top = 23.0
+offset_right = 206.5
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Policy"
+
+[node name="TEXT-480" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 23.0
+offset_right = 311.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ", November's"
+
+[node name="a-867" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 312.5
+offset_top = 23.0
+offset_right = 382.5
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "W3 news"
+
+[node name="TEXT-749" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 23.0
+offset_right = 389.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-39" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 390.5
+offset_top = 23.0
+offset_right = 608.5
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Frequently Asked Questions"
+
+[node name="TEXT-481" type="Label" parent="Document/root-685/body-903/p-527"]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 23.0
+offset_right = 615.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "."
+
+[node name="dl-693" type="Control" parent="Document/root-685/body-903"]
+anchors_preset = 0
+offset_top = 204.0
+offset_right = 570.5
+offset_bottom = 641.0
+
+[node name="dt-368" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_right = 139.5
+offset_bottom = 23.0
+
+[node name="a-803" type="Label" parent="Document/root-685/body-903/dl-693/dt-368"]
+layout_mode = 0
+offset_right = 138.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "What's out there?"
+
+[node name="dd-251" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 23.0
+offset_right = 570.5
+offset_bottom = 46.0
+
+[node name="TEXT-648" type="Label" parent="Document/root-685/body-903/dl-693/dd-251"]
+layout_mode = 0
+offset_right = 331.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Pointers to the world's online information,"
+
+[node name="a-790" type="Label" parent="Document/root-685/body-903/dl-693/dd-251"]
+layout_mode = 0
+offset_left = 332.5
+offset_right = 396.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "subjects"
+
+[node name="TEXT-956" type="Label" parent="Document/root-685/body-903/dl-693/dd-251"]
+layout_mode = 0
+offset_left = 398.0
+offset_right = 403.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-821" type="Label" parent="Document/root-685/body-903/dl-693/dd-251"]
+layout_mode = 0
+offset_left = 404.5
+offset_right = 490.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "W3 servers"
+
+[node name="TEXT-65" type="Label" parent="Document/root-685/body-903/dl-693/dd-251"]
+layout_mode = 0
+offset_left = 492.0
+offset_right = 529.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ", etc."
+
+[node name="dt-660" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 46.0
+offset_right = 37.5
+offset_bottom = 69.0
+
+[node name="a-615" type="Label" parent="Document/root-685/body-903/dl-693/dt-660"]
+layout_mode = 0
+offset_right = 36.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Help"
+
+[node name="dd-487" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 69.0
+offset_right = 269.5
+offset_bottom = 92.0
+
+[node name="TEXT-928" type="Label" parent="Document/root-685/body-903/dl-693/dd-487"]
+layout_mode = 0
+offset_right = 228.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "on the browser you are using"
+
+[node name="dt-663" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 92.0
+offset_right = 144.5
+offset_bottom = 115.0
+
+[node name="a-325" type="Label" parent="Document/root-685/body-903/dl-693/dt-663"]
+layout_mode = 0
+offset_right = 143.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Software Products"
+
+[node name="dd-554" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 115.0
+offset_right = 104.0
+offset_bottom = 161.0
+
+[node name="TEXT-601" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_right = 471.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "A list of W3 project components and their current state. (e.g."
+
+[node name="a-468" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 472.5
+offset_right = 553.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Line Mode"
+
+[node name="TEXT-293" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 555.0
+offset_right = 588.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ",X11"
+
+[node name="a-271" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 589.5
+offset_right = 627.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Viola"
+
+[node name="TEXT-223" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 629.0
+offset_right = 634.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-315" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 635.5
+offset_right = 711.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "NeXTStep"
+
+[node name="TEXT-203" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 713.0
+offset_right = 718.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-216" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 719.5
+offset_right = 777.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Servers"
+
+[node name="TEXT-467" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 779.0
+offset_right = 784.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-611" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 785.5
+offset_right = 826.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Tools"
+
+[node name="TEXT-194" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 828.0
+offset_right = 833.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-69" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 834.5
+offset_right = 915.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Mail robot"
+
+[node name="TEXT-823" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 917.0
+offset_right = 922.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ","
+
+[node name="a-529" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 923.5
+offset_right = 924.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+
+[node name="a-76" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 55.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Library"
+
+[node name="TEXT-794" type="Label" parent="Document/root-685/body-903/dl-693/dd-554"]
+layout_mode = 0
+offset_left = 56.5
+offset_top = 23.0
+offset_right = 62.5
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ")"
+
+[node name="dt-715" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 161.0
+offset_right = 74.5
+offset_bottom = 184.0
+
+[node name="a-506" type="Label" parent="Document/root-685/body-903/dl-693/dt-715"]
+layout_mode = 0
+offset_right = 73.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Technical"
+
+[node name="dd-794" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 184.0
+offset_right = 440.5
+offset_bottom = 207.0
+
+[node name="TEXT-321" type="Label" parent="Document/root-685/body-903/dl-693/dd-794"]
+layout_mode = 0
+offset_right = 399.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Details of protocols, formats, program internals etc"
+
+[node name="dt-702" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 207.0
+offset_right = 99.5
+offset_bottom = 230.0
+
+[node name="a-109" type="Label" parent="Document/root-685/body-903/dl-693/dt-702"]
+layout_mode = 0
+offset_right = 98.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Bibliography"
+
+[node name="dd-615" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 230.0
+offset_right = 389.5
+offset_bottom = 253.0
+
+[node name="TEXT-842" type="Label" parent="Document/root-685/body-903/dl-693/dd-615"]
+layout_mode = 0
+offset_right = 348.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Paper documentation on W3 and references."
+
+[node name="dt-153" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 253.0
+offset_right = 54.5
+offset_bottom = 276.0
+
+[node name="a-969" type="Label" parent="Document/root-685/body-903/dl-693/dt-153"]
+layout_mode = 0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "People"
+
+[node name="dd-652" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 276.0
+offset_right = 386.5
+offset_bottom = 299.0
+
+[node name="TEXT-234" type="Label" parent="Document/root-685/body-903/dl-693/dd-652"]
+layout_mode = 0
+offset_right = 345.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "A list of some people involved in the project."
+
+[node name="dt-723" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 299.0
+offset_right = 57.5
+offset_bottom = 322.0
+
+[node name="a-888" type="Label" parent="Document/root-685/body-903/dl-693/dt-723"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "History"
+
+[node name="dd-315" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 322.0
+offset_right = 352.5
+offset_bottom = 345.0
+
+[node name="TEXT-548" type="Label" parent="Document/root-685/body-903/dl-693/dd-315"]
+layout_mode = 0
+offset_right = 311.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "A summary of the history of the project."
+
+[node name="dt-76" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 345.0
+offset_right = 127.0
+offset_bottom = 368.0
+
+[node name="a-59" type="Label" parent="Document/root-685/body-903/dl-693/dt-76"]
+layout_mode = 0
+offset_right = 116.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "How can I help"
+
+[node name="TEXT-830" type="Label" parent="Document/root-685/body-903/dl-693/dt-76"]
+layout_mode = 0
+offset_left = 117.5
+offset_right = 125.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "?"
+
+[node name="dd-186" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 368.0
+offset_right = 332.5
+offset_bottom = 391.0
+
+[node name="TEXT-389" type="Label" parent="Document/root-685/body-903/dl-693/dd-186"]
+layout_mode = 0
+offset_right = 291.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "If you would like to support the web.."
+
+[node name="dt-644" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_top = 391.0
+offset_right = 100.5
+offset_bottom = 414.0
+
+[node name="a-484" type="Label" parent="Document/root-685/body-903/dl-693/dt-644"]
+layout_mode = 0
+offset_right = 99.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Getting code"
+
+[node name="dd-372" type="Control" parent="Document/root-685/body-903/dl-693"]
+anchors_preset = 0
+offset_left = 40.0
+offset_top = 414.0
+offset_right = 358.5
+offset_bottom = 437.0
+
+[node name="TEXT-189" type="Label" parent="Document/root-685/body-903/dl-693/dd-372"]
+layout_mode = 0
+offset_right = 153.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "Getting the code by"
+
+[node name="a-817" type="Label" parent="Document/root-685/body-903/dl-693/dd-372"]
+layout_mode = 0
+offset_left = 154.5
+offset_right = 278.5
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "anonymous FTP"
+
+[node name="TEXT-13" type="Label" parent="Document/root-685/body-903/dl-693/dd-372"]
+layout_mode = 0
+offset_left = 280.0
+offset_right = 317.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = ", etc."
