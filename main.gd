@@ -5,7 +5,6 @@ var start_url = "http://info.cern.ch/hypertext/WWW/TheProject.html"
 var history = [start_url]
 var current_history_index = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%Url.grab_focus()
 	%Url.text = start_url
@@ -23,11 +22,6 @@ func _ready() -> void:
 	%RichTextLabel.meta_clicked.connect(self._on_link_clicked)
 
 	request_url(%Url.text)
-	# EXAMPLE
-	#var file_path = "res://example.txt"
-	#var file = FileAccess.open(file_path, FileAccess.READ).get_as_text()
-	#print(file)
-	#parse_website(file)
 	
 
 func parse_website(text:String):
