@@ -1,7 +1,12 @@
+class_name Document
 extends Node2D
 
 @export var http_request: HTTPRequest
 @export var address_box: TextEdit
+@export var back_button: Button
+
+var current_page: String
+var history: Array[String] = []
 
 func _create_block_node(block: Layout.BlockNode) -> Node:
 	var box = Control.new()
@@ -20,6 +25,12 @@ func _create_text_fragment_with_rigid_body(parent: Node, fragment: Layout.TextFr
 	rigid_body.name = fragment.dom_node.tag_name + "-" + str(randi_range(0, 1000))
 	rigid_body.position = fragment.rect.position
 	rigid_body.input_pickable = true
+
+	if fragment.dom_node.tag_name == 'a' and 'href' in fragment.dom_node.attributes:
+		var link = Link.new()
+		link.name = 'Link'
+		link.href = fragment.dom_node.attributes['href']
+		rigid_body.add_child(link)
 
 	var shape = CollisionShape2D.new()
 	shape.shape = RectangleShape2D.new()
@@ -53,13 +64,39 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	var dom_tree = DOM.build_dom_tree(parser)
 	var layout_tree = Layout.build_layout_tree(dom_tree)
 	layout_tree.layout(1000)
-	_create_block(self, layout_tree)
 
-func on_refresh() -> void:
 	for child in get_children():
 		remove_child(child)
-	http_request.request(address_box.text)
+	_create_block(self, layout_tree)
+
+func _load_page(address: String):
+	if current_page != address:
+		print('Add to history: ', current_page)
+		history.append(current_page)
+		back_button.disabled = false
+		current_page = address
+
+	print('Load ', address)
+	http_request.cancel_request()
+	http_request.request(address)
+
+func on_refresh() -> void:
+	_load_page(address_box.text)
+
+func _on_back_pressed():
+	if len(history) == 0:
+		return
+
+	var address = history.pop_back()
+	print('Read from history: ', address)
+	current_page = address
+	address_box.text = address
+	if len(history) == 0:
+		back_button.disabled = true
+	_load_page(address)
 
 func _ready():
+	current_page = address_box.text
 	http_request.request_completed.connect(_on_request_completed)
+	back_button.pressed.connect(_on_back_pressed)
 	on_refresh()

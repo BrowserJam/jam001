@@ -19,12 +19,14 @@ static func _text_for_rendering(text: String) -> String:
 
 class DomNode:
 	var tag_name: String
+	var attributes: Dictionary
 	var style: Style
 	var text: String
 	var children: Array[DomNode]
 
-	func _init(tag_name: String, parent_style: Style):
+	func _init(tag_name: String, attributes: Dictionary, parent_style: Style):
 		self.tag_name = tag_name
+		self.attributes = attributes
 		self.style = Style.apply_default_style_for_element(tag_name, parent_style)
 
 	func add_child(child: DomNode):
@@ -61,7 +63,7 @@ static func _should_auto_close(tag_name: String, top_of_stack: String) -> bool:
 	return false
 
 static func build_dom_tree(parser: Parser) -> DomNode:
-	var root = DomNode.new('root', Style.new())
+	var root = DomNode.new('root', {}, Style.new())
 	var stack: Array[DomNode] = [root]
 
 	while true:
@@ -73,7 +75,7 @@ static func build_dom_tree(parser: Parser) -> DomNode:
 		var tag_name = token.tag_name.to_lower()
 
 		if token.type == Token.Type.Text:
-			var text_node = DomNode.new('TEXT', top_of_stack.style)
+			var text_node = DomNode.new('TEXT', {}, top_of_stack.style)
 			text_node.text = token.text
 			top_of_stack.add_child(text_node)
 			continue
@@ -82,8 +84,8 @@ static func build_dom_tree(parser: Parser) -> DomNode:
 			if _should_auto_close(tag_name, top_of_stack.tag_name):
 				stack.pop_back()
 				top_of_stack = stack[len(stack) - 1]
-			
-			var node = DomNode.new(tag_name, top_of_stack.style)
+
+			var node = DomNode.new(tag_name, token.attributes, top_of_stack.style)
 			top_of_stack.add_child(node)
 			if not tag_name in SELF_CLOSING_TAGS:
 				stack.append(node)

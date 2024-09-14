@@ -20,14 +20,18 @@ border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61mkw"]
 
-[node name="Root" type="Node2D"]
+[node name="Root" type="Node2D" node_paths=PackedStringArray("document", "address_box", "enable_links")]
 script = ExtResource("1_i3q73")
+document = NodePath("Document")
+address_box = NodePath("Control/PanelContainer/VBoxContainer/TextEdit")
+enable_links = NodePath("Control/PanelContainer/VBoxContainer/CheckBox2")
 
-[node name="Document" type="Node2D" parent="." node_paths=PackedStringArray("http_request", "address_box")]
+[node name="Document" type="Node2D" parent="." node_paths=PackedStringArray("http_request", "address_box", "back_button")]
 position = Vector2(10, 10)
 script = ExtResource("1_t74iv")
 http_request = NodePath("../HTTPRequest")
 address_box = NodePath("../Control/PanelContainer/VBoxContainer/TextEdit")
+back_button = NodePath("../Control/PanelContainer/VBoxContainer/HBoxContainer/Button2")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 1080)
@@ -53,7 +57,7 @@ anchor_right = 1.0
 offset_left = -349.0
 offset_top = 10.0
 offset_right = -10.0
-offset_bottom = 287.0
+offset_bottom = 315.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_55s8d")
 
@@ -91,15 +95,31 @@ layout_mode = 2
 text = "Enable Gravity"
 script = ExtResource("3_loy23")
 
+[node name="CheckBox2" type="CheckBox" parent="Control/PanelContainer/VBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Enable Links"
+
 [node name="HSeparator3" type="HSeparator" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_61mkw")
 
-[node name="Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "Refresh"
+
+[node name="Button" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Refesh"
+
+[node name="Button2" type="Button" parent="Control/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+disabled = true
+text = "Back"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/Button" to="Document" method="on_refresh"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/HBoxContainer/Button" to="Document" method="on_refresh"]
+[connection signal="pressed" from="Control/PanelContainer/VBoxContainer/HBoxContainer/Button2" to="Document" method="on_refresh"]
