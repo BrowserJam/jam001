@@ -4,16 +4,17 @@ static func _copy_style(parent_style: Style) -> Style:
 	var style = Style.new()
 	style.font_size = parent_style.font_size
 	style.text_color = parent_style.text_color
+	# NOTE: Margin not inherited.
 	return style
 
 static func apply_default_style_for_element(tag_name: String, parent_style: Style) -> Style:
 	var style = _copy_style(parent_style)
 	match tag_name:
 		'body':
-			style.margin_top = 5
-			style.margin_bottom = 5
-			style.margin_left = 5
-			style.margin_right = 5
+			style.margin_top = 10
+			style.margin_bottom = 10
+			style.margin_left = 10
+			style.margin_right = 10
 		'h1':
 			style.font_size = 30
 			style.margin_top = 20
