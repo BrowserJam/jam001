@@ -1,0 +1,15 @@
+Depends on a D compiler and my arsd repo downloaded locally called `arsd` under the current dir
+
+https://github.com/adamdruppe/arsd
+
+get master. I'm editing that as i go in here.
+
+then `dmd -i browserjam.d` will hopefully work.
+
+It uses lots of arsd code, but I wrote virtually all of what it uses from there, and it isn't using the prepackaged webview so i don't think it is cheating too much lol
+
+as of right now, it does not load images or website css. those MIGHT come soon.
+
+can't display tables. no list item markers. just super basic text.
+
+but you can click links and go backward and forward so it feels like a browser :)
