@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://hoo8ttycwy87"]
+
+[sub_resource type="Gradient" id="Gradient_msw8v"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lv6us"]
+gradient = SubResource("Gradient_msw8v")
+
+[sub_resource type="Curve" id="Curve_iar3t"]
+_data = [Vector2(0, 0.983376), 0.0, 0.0, 0, 0, Vector2(1, 0.0274936), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nq8be"]
+offsets = PackedFloat32Array(0, 0.556338)
+colors = PackedColorArray(0.827266, 0.539993, 0, 1, 0.833762, 0.129184, 0, 1)
+
+[sub_resource type="Curve" id="Curve_p88se"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.990385, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Explosion" type="CPUParticles2D"]
+emitting = false
+amount = 100
+lifetime = 0.2
+one_shot = true
+explosiveness = 0.92
+texture = SubResource("GradientTexture2D_lv6us")
+spread = 180.0
+initial_velocity_min = 506.02
+initial_velocity_max = 644.58
+angular_velocity_min = -360.0
+angular_velocity_max = 661.4
+angle_max = 360.0
+scale_amount_min = 0.1
+scale_amount_max = 0.3
+scale_amount_curve = SubResource("Curve_iar3t")
+color_ramp = SubResource("Gradient_nq8be")
+hue_variation_min = -0.14
+hue_variation_max = 0.11
+hue_variation_curve = SubResource("Curve_p88se")

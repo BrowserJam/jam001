@@ -34,6 +34,7 @@ func _create_text_fragment_with_rigid_body(parent: Node, fragment: Layout.TextFr
 		rigid_body.add_child(link)
 
 	var shape = CollisionShape2D.new()
+	shape.name = 'Shape'
 	shape.shape = RectangleShape2D.new()
 	shape.shape.size = fragment.rect.size
 	shape.translate(fragment.rect.size / 2)
@@ -63,12 +64,9 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 	var parser = Parser.new(source)
 	var dom_tree = DOM.build_dom_tree(parser)
+	dom_tree.debug_print()
 	var layout_tree = Layout.build_layout_tree(dom_tree)
 	layout_tree.layout(1000)
-
-	if not accumulate_mode_toggle.button_pressed:
-		for child in get_children():
-			remove_child(child)
 	_create_block(self, layout_tree)
 
 func _load_page(address: String):
@@ -77,6 +75,10 @@ func _load_page(address: String):
 		history.append(current_page)
 		back_button.disabled = false
 		current_page = address
+
+	if not accumulate_mode_toggle.button_pressed:
+		for child in get_children():
+			remove_child(child)
 
 	print('Load ', address)
 	http_request.cancel_request()
