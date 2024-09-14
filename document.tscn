@@ -23,8 +23,11 @@ border_color = Color(0, 0, 0, 1)
 [node name="Root" type="Node2D"]
 script = ExtResource("1_i3q73")
 
-[node name="Document" type="Node2D" parent="."]
+[node name="Document" type="Node2D" parent="." node_paths=PackedStringArray("http_request", "address_box")]
+position = Vector2(10, 10)
 script = ExtResource("1_t74iv")
+http_request = NodePath("../HTTPRequest")
+address_box = NodePath("../Control/PanelContainer/VBoxContainer/TextEdit")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 1080)
@@ -71,9 +74,9 @@ layout_mode = 2
 text = "Address"
 
 [node name="TextEdit" type="TextEdit" parent="Control/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 36)
+custom_minimum_size = Vector2(0, 43)
 layout_mode = 2
-text = "http://google.com"
+text = "http://info.cern.ch/hypertext/WWW/TheProject.html"
 
 [node name="HSeparator2" type="HSeparator" parent="Control/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 15.185)
@@ -96,5 +99,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_61mkw")
 [node name="Button" type="Button" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Refresh"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [connection signal="pressed" from="Control/PanelContainer/VBoxContainer/Button" to="Document" method="on_refresh"]
