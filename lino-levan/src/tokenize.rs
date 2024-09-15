@@ -15,28 +15,28 @@ fn strip_quotes(s: &str) -> String {
     let mut chars = s.chars();
     let first = chars.next();
     let last = chars.next_back();
-    
+
     match (first, last) {
-        (Some('"'), Some('"')) => s[1..s.len()-1].to_string(),
+        (Some('"'), Some('"')) => s[1..s.len() - 1].to_string(),
         _ => s.to_string(),
     }
 }
 
 fn parse_tag(iterator: &mut std::iter::Peekable<std::str::Chars>) -> HTMLToken {
     match iterator.next() {
-        Some('<') => {},
-        _ => panic!("Unexpected character")
+        Some('<') => {}
+        _ => panic!("Unexpected character"),
     }
     let mut tag = String::new();
     let mut parsing_tag = true;
     let mut unparsed_attributes = String::new();
-    
+
     while let Some(&c) = iterator.peek() {
         if c == '>' {
             iterator.next();
             break;
         }
-        
+
         if parsing_tag {
             if c == ' ' || c == '\n' || c == '\t' {
                 parsing_tag = false;
@@ -49,13 +49,13 @@ fn parse_tag(iterator: &mut std::iter::Peekable<std::str::Chars>) -> HTMLToken {
             iterator.next();
         }
     }
-    
+
     let mut attributes = vec![];
-    
+
     let mut key = String::new();
     let mut value = String::new();
     let mut parsing_key = true;
-    
+
     for c in unparsed_attributes.chars() {
         if c == '=' {
             parsing_key = false;
@@ -72,11 +72,11 @@ fn parse_tag(iterator: &mut std::iter::Peekable<std::str::Chars>) -> HTMLToken {
             value.push(c);
         }
     }
-    
+
     if key.len() > 0 {
         attributes.push((key.clone().to_lowercase(), strip_quotes(value.as_str())));
     }
-    
+
     if tag.starts_with("/") {
         return HTMLToken::CloseTag {
             tag: tag[1..].to_string().to_lowercase(),
@@ -91,37 +91,37 @@ fn parse_tag(iterator: &mut std::iter::Peekable<std::str::Chars>) -> HTMLToken {
 
 pub fn tokenize_html(html: &str) -> Vec<HTMLToken> {
     let mut elements = vec![];
-    
+
     let mut iterator = html.chars().peekable();
-    
+
     loop {
         match iterator.peek() {
-            Some(_) => {},
+            Some(_) => {}
             None => break,
         }
-        
+
         let mut text = String::new();
-        
+
         while let Some(&c) = iterator.peek() {
             if c == '<' {
                 break;
             }
-            
+
             text.push(iterator.next().unwrap());
         }
-        
+
         if text.len() > 0 {
             elements.push(HTMLToken::Text(text));
         }
-        
+
         if iterator.peek() == None {
             break;
         }
-        
+
         let tag = parse_tag(&mut iterator);
-        
+
         elements.push(tag);
     }
-    
+
     return elements;
 }
