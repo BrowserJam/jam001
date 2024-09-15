@@ -5,13 +5,12 @@ use skia_safe::{Color, Font, FontMgr, FontStyle, Handle, Paint, TextBlob};
 
 use crate::parse::HTMLNode;
 
-static FONT_SCALE: f32 = 2.7;
 static FONT_12_PT: LazyLock<Mutex<Handle<SkFont>>> = LazyLock::new(|| {
     Mutex::new(Font::from_typeface(
         FontMgr::new()
             .legacy_make_typeface(None, FontStyle::default())
             .unwrap(),
-        12.0 * FONT_SCALE as f32,
+        32.0,
     ))
 });
 static FONT_32_PT: LazyLock<Mutex<Handle<SkFont>>> = LazyLock::new(|| {
@@ -19,7 +18,7 @@ static FONT_32_PT: LazyLock<Mutex<Handle<SkFont>>> = LazyLock::new(|| {
         FontMgr::new()
             .legacy_make_typeface(None, FontStyle::default())
             .unwrap(),
-        32.0 * FONT_SCALE as f32,
+        64.0,
     ))
 });
 
@@ -95,7 +94,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     canvas,
                                     &mut x,
                                     &mut y,
-                                    150.0,
+                                    100.0,
                                     0.0,
                                     &paint,
                                     &font_32_pt(),
