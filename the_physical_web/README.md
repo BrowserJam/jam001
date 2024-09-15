@@ -10,3 +10,4 @@ You need Godot version v4.3.stable (https://godotengine.org/download/archive/4.3
 
 ## Screenshot
 ![Screenshot](screenshot.png)
+A video demo: https://www.youtube.com/watch?v=tDpKS05H2eo
