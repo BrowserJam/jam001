@@ -12,15 +12,33 @@ class HtmlToNodeTreeParser
 {
     public function parse(string $html): DomNode
     {
+        // There are some tags that has a number as an attribute which doesn't
+        // get parsed correctly by the library. This is a workaround for that.
+        $html = preg_replace('/<NEXTID (\d+)>/', '', $html);
+
         $dom = new \PHPHtmlParser\Dom;
         $dom->loadStr($html);
 
-        $body = $dom->find('body')[0] ?? $dom->find('BODY')[0] ?? null;
+        $body = $dom->find('body')[0]
+            ?? $dom->find('BODY')[0]
+            ?? null;
 
         if (!$body) {
-            throw new \RuntimeException('No body tag found in the HTML.');
+            // create a body tag if it doesn't exist
+            $body = new HtmlNode('body');
+
+            foreach ($dom->root->getChildren() as $child) {
+                $body->addChild($child);
+            }
+
+            $body->setParent($dom->root);
         }
+
+        // Title is not supposed to be displayed, so remove it.
+        $body->find('title')->each(fn(HtmlNode $node) => $node->delete());
+        $body->find('TITLE')->each(fn(HtmlNode $node) => $node->delete());
         
+        // Parse into simplified representation
         $root_node = $this->parseNode($body);
         if ($root_node === null) {
             throw new \RuntimeException('Root node is empty.');
@@ -71,8 +89,6 @@ class HtmlToNodeTreeParser
 
         throw new \RuntimeException('Unknown node type: ' . get_class($node));
     }
-
-    
 
     private function fixUnclosedTags(DomNode $node)
     {
