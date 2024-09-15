@@ -28,20 +28,40 @@ int cur_key = -1;
 int cur_skey = -1;
 int win_width, win_height;
 
-void draw_text(int x, int y, int font, rgb *color, const char* str)
+void draw_line(float width, float x0, float y0, float x1, float y1, rgb* color)
 {
-	int line_height = 24;
+	glLineWidth(width);
+	//glEnable(GL_LINE_SMOOTH);
+	glBegin(GL_LINES);
+	glVertex2f(x0, y0);
+	glVertex2f(x1, y1);
+	glEnd();
+}
+
+// Render text with the specified style. Returns the number of lines rendered.
+int draw_text(int x, int y, const style* s, const char* str)
+{
+	int lines = 1;
+	int width = 0;
+	glColor3f(((float)s->color->r) / 255.f, ((float)s->color->g) / 255.f, ((float)s->color->b) / 255.f);
 	glRasterPos2i(x, y);
-	glColor3f(((float)color->r) / 255.f, ((float)color->g) / 255.f, ((float)color->b) / 255.f);
+	y -= s->margin->top;
+	if (s->border->top > 0) draw_line(s->border->top, x, y, x + 100, y, s->color);
+	y -= s->padding->top;
 	while (*str) {
 		if (*str == '\n') {
-			y -= line_height;
+			y -= glutBitmapHeight(s->font);
 			glRasterPos2i(x, y);
-			str++;
+			str++; lines++;
 			continue;
 		}
-		glutBitmapCharacter(font, *str++);
+		width += glutBitmapWidth(s->font, *str); // TODO this is broken for multilines.
+		glutBitmapCharacter(s->font, *str++);
 	}
+	y -= s->padding->bottom;
+	if (s->border->bottom > 0) draw_line(s->border->bottom, x, y, x + width, y, s->color);
+	y -= s->margin->bottom;
+	return lines;
 }
 
 void reshape(int x, int y)
@@ -106,13 +126,13 @@ void display(void)
 			strcat(str, "  super");
 		}
 	}
-	draw_text(win_width * (3.f/4.f), 0, GLUT_BITMAP_TIMES_ROMAN_24, &black, str);
+	draw_text(win_width * (3.f/4.f), 10, &fallback_style, str);
 
 	strcpy(str, "Special key: ");
 	if (cur_skey > 0) {
 		strcat(str, skeyname(cur_skey));
 	}
-	draw_text(win_width * (1.f/2.f), 0, GLUT_BITMAP_TIMES_ROMAN_24, &black, str);
+	draw_text(win_width * (1.f/2.f), 10, &fallback_style, str);
 	
 	tag* body = get_child_by_name(&root_tag, 2, "html", "body");
 	tag* iter = body;
@@ -125,9 +145,11 @@ void display(void)
 	while (iter)
 	{
 		if (iter->content) {
-			const style* s = get_default_style_by_name(iter->type);
-			draw_text(caret_x, caret_y, s->font, s->color, iter->content);
-			caret_y -= 24;
+			const style* sty = get_default_style_by_name(iter->type);
+			int lines = draw_text(caret_x, caret_y, sty, iter->content);
+			int top_buffer = sty->padding->top + sty->border->top + sty->padding->top;
+			int bottom_buffer = sty->padding->bottom + sty->border->bottom + sty->padding->bottom;
+			caret_y -= (top_buffer + lines*glutBitmapHeight(sty->font) + bottom_buffer);
 		}
 		iter = next_tag(iter);
 	}
