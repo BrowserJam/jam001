@@ -20,6 +20,7 @@ typedef struct style {
 	box* margin;
 	box* border;
 	box* padding;
+	int skip_lines;
 } style;
 
 void parseCSS(const char* input, const char* output)

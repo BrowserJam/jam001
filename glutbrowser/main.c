@@ -29,28 +29,23 @@ void draw_line(float width, float x0, float y0, float x1, float y1, rgb* color)
 }
 
 // Render text with the specified style. Returns the number of lines rendered.
-int draw_text(int x, int y, const style* s, const char* str)
+int draw_text(int x, int y, int* dxout, int* dyout, const style* s, const char* str)
 {
-	int lines = 1;
-	int width = 0;
+	int lines = 0;
 	glColor3f(((float)s->color->r) / 255.f, ((float)s->color->g) / 255.f, ((float)s->color->b) / 255.f);
 	glRasterPos2i(x, y);
-	y -= s->margin->top;
 	if (s->border->top > 0) draw_line(s->border->top, x, y, x + 100, y, s->color);
-	y -= s->padding->top;
 	while (*str) {
-		if (*str == '\n') {
+		/*if (*str == '\n') {
+			*dyout += glutBitmapHeight(s->font);
 			y -= glutBitmapHeight(s->font);
 			glRasterPos2i(x, y);
 			str++; lines++;
 			continue;
-		}
-		width += glutBitmapWidth(s->font, *str); // TODO this is broken for multilines.
+		}*/
+		*dxout += glutBitmapWidth(s->font, *str); // TODO this is broken for multilines.
 		glutBitmapCharacter(s->font, *str++);
 	}
-	y -= s->padding->bottom;
-	if (s->border->bottom > 0) draw_line(s->border->bottom, x, y, x + width, y, s->color);
-	y -= s->margin->bottom;
 	return lines;
 }
 
@@ -91,6 +86,27 @@ void skeyrelease(int key, int x, int y)
 	glutPostRedisplay();
 }
 
+void mouseinput(int button, int state, int x, int y)
+{
+	if (button != GLUT_LEFT_BUTTON && state != GLUT_DOWN) return;
+	y = win_height - y;
+	printf("LMB click at (%i, %i)\n", x, y);
+
+	tag* body = get_child_by_name(&root_tag, 2, "html", "body");
+	tag* iter = body;
+
+	while (iter)
+	{
+		if (x > iter->x0 && y > iter->y0 && iter->x1 > x && iter->y1 > y) {
+			printf("Clicked in the BB (%i, %i, %i, %i)\n", iter->x0, iter->y0, iter->x1, iter->y1);
+			if (0 == strcmpi(iter->type, "a") && get_attribute_by_name(iter, "href")) {
+				printf("Navigating to %s\n", get_attribute_by_name(iter, "href"));
+			}
+		}
+		iter = next_tag(iter);
+	}
+}
+
 void display(void)
 {
 	char str[256];
@@ -116,13 +132,13 @@ void display(void)
 			strcat(str, "  super");
 		}
 	}
-	draw_text(win_width * (3.f/4.f), 10, &fallback_style, str);
+	/*draw_text(win_width * (3.f / 4.f), 10, &fallback_style, str);
 
 	strcpy(str, "Special key: ");
 	if (cur_skey > 0) {
 		strcat(str, skeyname(cur_skey));
 	}
-	draw_text(win_width * (1.f/2.f), 10, &fallback_style, str);
+	draw_text(win_width * (1.f/2.f), 10, &fallback_style, str);*/
 	
 	tag* body = get_child_by_name(&root_tag, 2, "html", "body");
 	tag* iter = body;
@@ -135,13 +151,46 @@ void display(void)
 
 	while (iter)
 	{
+		if (0 == strcmpi(iter->type, "title")) {
+			glutSetWindowTitle(iter->content);
+			iter = next_tag(iter);
+			continue;
+		}
+		
 		if (iter->content) {
 			const style* sty = get_default_style_by_name(iter->type);
-			int lines = draw_text(caret_x, caret_y, sty, iter->content);
-			int top_buffer = sty->padding->top + sty->border->top + sty->padding->top;
-			int bottom_buffer = sty->padding->bottom + sty->border->bottom + sty->padding->bottom;
-			caret_y -= (top_buffer + lines*glutBitmapHeight(sty->font) + bottom_buffer);
+			caret_x += sty->padding->left;
+			caret_y -= sty->padding->top;
+
+			int dx = 0, dy = 0;
+			int lines = draw_text(caret_x, caret_y, &dx, &dy, sty, iter->content);
+			if (sty->skip_lines > 0) {
+				lines += 1;
+				dy += glutBitmapHeight(sty->font);
+			}
+
+			iter->x0 = caret_x; iter->y0 = caret_y; iter->x1 = caret_x + dx; iter->y1 = caret_y + dy + glutBitmapHeight(sty->font);;
+			if (sty->border->bottom > 0)	draw_line(sty->border->bottom, iter->x0, iter->y0, iter->x1, iter->y0, sty->color);
+			if (sty->border->top > 0)		draw_line(sty->border->top,	   iter->x0, iter->y1, iter->x1, iter->y1, sty->color);
+			if (sty->border->left > 0)		draw_line(sty->border->left,   iter->x0, iter->y0, iter->x0, iter->y1, sty->color);
+			if (sty->border->right > 0)		draw_line(sty->border->right,  iter->x1, iter->y0, iter->x1, iter->y1, sty->color);
+
+			caret_x += dx + sty->padding->right;
+			caret_y -= dy + sty->padding->bottom;
+			if (lines != 0) caret_x = 0;
 		}
+
+		if (iter->post_content) {
+			const style* sty = get_default_style_by_name(iter->parent->type);
+			int dx = 0, dy = 0;
+			int lines = draw_text(caret_x, caret_y, &dx, &dy, sty, iter->post_content);
+			if (sty->border->bottom > 0)
+				draw_line(sty->border->bottom, caret_x, caret_y, caret_x + dx, caret_y, sty->color);
+			caret_x += dx;
+			caret_y -= dy;
+			if (lines != 0) caret_x = 0;
+		}
+
 		iter = next_tag(iter);
 	}
 
@@ -163,6 +212,7 @@ int main(int argc, char** argv)
 	glutKeyboardUpFunc(keyrelease);
 	glutSpecialFunc(skeypress);
 	glutSpecialUpFunc(skeyrelease);
+	glutMouseFunc(mouseinput);
 
 	FILE* fin;
 	if (argv[1]) {

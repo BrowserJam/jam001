@@ -45,10 +45,15 @@ typedef struct tag
 {
 	const char* type;
 	const char* content;
+	const char* post_content; // content belonging to the parent after the closing tag
 	attribute* first_attribute;
 	tag* first_child;
 	tag* next_sibling;
 	tag* parent;
+	int x0;
+	int y0;
+	int x1;
+	int y1;
 } tag;
 
 tag root_tag = { .type = "root", .first_child = NULL, .first_attribute = NULL, .next_sibling = NULL, .parent = NULL };
@@ -70,6 +75,16 @@ int append_attribute(tag* t, attribute* attr)
 	return attrs;
 }
 
+const char* get_attribute_by_name(const tag* t, const char* name)
+{
+	const attribute* it = t->first_attribute;
+	while (it) {
+		if (strcmp(it->key, name))
+			it = it->next;
+		else return it->value;
+	} return NULL;
+}
+
 // Returns a pointer to the last sibling of a tag, or NULL if it has no siblings
 tag* get_last_sibling(tag* t)
 {
@@ -81,11 +96,11 @@ tag* get_last_sibling(tag* t)
 // Returns any sibling in 't's list of siblings (or 't' itself) whose name matches 'name'. Otherwise NULL.
 tag* get_sibling_by_name(tag* t, const char* name)
 {
-	while (t)
+	while (t) {
 		if (strcmp(t->type, name))
 			t = t->next_sibling;
 		else return t;
-	return NULL;
+	} return NULL;
 }
 
 // Get a child of 't' by name, if extant. Optionally, supply a VA_LIST of names as the nested children to traverse.
@@ -274,7 +289,8 @@ void parse_html(const char* input)
 			// Content?
 			const char* content = arena_head;
 			arena_head += (strlen(arena_head) + 1); // Account for \0
-			active_tag->content = content;
+			if (active_tag->first_child) get_last_sibling(active_tag->first_child)->post_content = content;
+			else active_tag->content = content;
 			printf("%.*s%s\n", (indent_level > 16) ? 16 : indent_level, tabs, content);
 		}
 		else if (sscanf(input, Comment, &parsed) && parsed > 0) {
