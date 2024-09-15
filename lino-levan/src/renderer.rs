@@ -73,7 +73,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
 
     for node in nodes {
         match node {
-            HTMLNode::Text(_) => {
+            HTMLNode::Text(_) | HTMLNode::Comment(_) => {
                 // Do nothing, this text is outside of a tag
             }
             HTMLNode::Element {

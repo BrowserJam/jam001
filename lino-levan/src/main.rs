@@ -18,10 +18,10 @@ use skia_safe::{
 };
 use std::sync::{LazyLock, Mutex};
 use std::{
+    env::args,
     ffi::CString,
     num::NonZeroU32,
     time::{Duration, Instant},
-    env::args,
 };
 use tokenize::tokenize_html;
 use winit::{
@@ -45,11 +45,9 @@ fn main() {
     if args.len() > 1 {
         url = &args[1];
     }
-    let resp = reqwest::blocking::get(url)
-        .unwrap()
-        .text()
-        .unwrap();
+    let resp = reqwest::blocking::get(url).unwrap().text().unwrap();
     let tokens = tokenize_html(resp.as_str());
+    println!("{:?}", tokens);
     let nodes = parse::parse(tokens);
     println!("{}", print_html(&nodes));
     NODES.lock().unwrap().extend(nodes);

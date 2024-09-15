@@ -8,6 +8,7 @@ pub fn print_html(parse: &Vec<HTMLNode>) -> String {
     for node in parse {
         match node {
             HTMLNode::Text(text) => html.push_str(&text),
+            HTMLNode::Comment(comment) => html.push_str(&format!("<!--{}-->", comment)),
             HTMLNode::Element {
                 tag,
                 attributes,
