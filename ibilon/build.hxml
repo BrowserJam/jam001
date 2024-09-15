@@ -1,0 +1,8 @@
+--class-path src/
+--dce full
+--debug
+--define analyser-optimize
+--define analyzer-user-var-fusion
+--define message.reporting=pretty
+--jvm build/browser.jar
+--main Main
