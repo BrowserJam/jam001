@@ -1,0 +1,7 @@
+main
+.vscode
+.cache
+*.o
+*.html
+
+compile_commands.json
