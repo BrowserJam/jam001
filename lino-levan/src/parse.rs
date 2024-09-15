@@ -35,7 +35,7 @@ fn parse_tag(
 ) -> HTMLNode {
     match tokens.next() {
         Some(HTMLToken::OpenTag { tag, attributes }) => {
-            if tag == "nextid" {
+            if tag == "nextid" || tag == "!doctype" || tag == "meta" {
                 return HTMLNode::Element {
                     tag: tag.clone(),
                     attributes: attributes.clone(),
