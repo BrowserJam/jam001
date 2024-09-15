@@ -9,7 +9,7 @@ What's a browser without some dead memes?
 * install bun
 * `bun install && bun start`
 * visit everyone's favorite new browser ladybird and connect to http://localhost:3000
-* alternatively visit https://browser.mbkv.io with ladybird using the linux option `--enable-qt-networking`, unclear why ladybird's request code fails to load
+* alternatively visit https://browser.mbkv.io with ladybird
 
 Of course this works with other browsers as well
 
