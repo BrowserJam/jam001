@@ -1,0 +1,13 @@
+[package]
+name = "kale"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.88"
+macroquad = "0.4.13"
+pest = "2.7.12"
+pest_derive = "2.7.12"
+reqwest = { version = "0.12.7", features = ["blocking"] }
+tokio = "1.40.0"
+uuid = { version = "1.10.0", features = ["v4"] }
