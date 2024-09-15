@@ -1,0 +1,5 @@
+Minimal browser using standard python libraries and pyimgui.
+
+If you are in NixOS, run `./run.sh`.
+If you are on other OSes, YMMV. Just make sure you have pysdl and pyimgui installed and do
+`python main.py first.html`
