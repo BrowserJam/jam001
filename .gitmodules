@@ -1,0 +1,3 @@
+[submodule "dfranx/libs/myhtml"]
+	path = dfranx/libs/myhtml
+	url = https://github.com/lexborisov/myhtml
