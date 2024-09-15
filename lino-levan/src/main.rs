@@ -21,6 +21,7 @@ use std::{
     ffi::CString,
     num::NonZeroU32,
     time::{Duration, Instant},
+    env::args,
 };
 use tokenize::tokenize_html;
 use winit::{
@@ -39,7 +40,12 @@ mod tokenize;
 static NODES: LazyLock<Mutex<Vec<HTMLNode>>> = LazyLock::new(|| Mutex::new(vec![]));
 
 fn main() {
-    let resp = reqwest::blocking::get("https://info.cern.ch/hypertext/WWW/TheProject.html")
+    let args: Vec<String> = args().collect();
+    let mut url = "https://info.cern.ch/hypertext/WWW/TheProject.html";
+    if args.len() > 1 {
+        url = &args[1];
+    }
+    let resp = reqwest::blocking::get(url)
         .unwrap()
         .text()
         .unwrap();
