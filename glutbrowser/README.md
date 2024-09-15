@@ -19,3 +19,6 @@ You must call the browser with the html filename as the first argument, e.g.
 ```
 .\glutbrowser.exe "C:\\Users\\<user>\\Downloads\\The World Wide Web project.htm"
 ```
+If all goes well, you will see a bare-bones webpage with a bit of styling.
+
+![glutbrowser in action](screenshot.png)
