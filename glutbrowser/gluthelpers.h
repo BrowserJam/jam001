@@ -4,7 +4,11 @@
 
 #include <GL/freeglut.h>
 
-const box box_zero = { .top = 0, .right = 0, .bottom = 0, .left = 0 };
+const box box_zero			= { .top = 0, .right = 0, .bottom = 0, .left = 0 };
+const box box_underline_1	= { .top = 0, .right = 0, .bottom = 1, .left = 0 };
+const box box_1				= { .top = 1, .right = 1, .bottom = 1, .left = 1 };
+const box box_8				= { .top = 8, .right = 8, .bottom = 8, .left = 8 };
+
 const rgb white =	{ .r = 255,	.g = 255,	.b = 255 };
 const rgb black =	{ .r = 0,	.g = 0,		.b = 0 };
 const rgb red =		{ .r = 255, .g = 0,		.b = 0 };
@@ -16,10 +20,11 @@ const rgb* bg_color = &white;
 const style fallback_style = { .name = "fallback", GLUT_BITMAP_8_BY_13, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero };
 
 const style default_styles[] = {
-	{.name = "h1", GLUT_BITMAP_TIMES_ROMAN_24, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
-	{.name = "h2", GLUT_BITMAP_HELVETICA_18, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
-	{.name = "h3", GLUT_BITMAP_9_BY_15, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
-	{.name = "a", GLUT_BITMAP_8_BY_13, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero}
+	{.name = "h1", GLUT_BITMAP_TIMES_ROMAN_24, .color = &red, .margin = &box_8, .border = &box_zero, .padding = &box_zero},
+	{.name = "h2", GLUT_BITMAP_HELVETICA_18, .color = &black, .margin = &box_8, .border = &box_zero, .padding = &box_zero},
+	{.name = "h3", GLUT_BITMAP_HELVETICA_12, .color = &black, .margin = &box_8, .border = &box_zero, .padding = &box_zero},
+	{.name = "p", GLUT_BITMAP_HELVETICA_10, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
+	{.name = "a", GLUT_BITMAP_HELVETICA_10, .color = &blue, .margin = &box_zero, .border = &box_underline_1, .padding = &box_zero}
 };
 
 const style* get_default_style_by_name(const char* name) {
