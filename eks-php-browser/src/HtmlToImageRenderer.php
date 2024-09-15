@@ -6,6 +6,7 @@ use Ekgame\PhpBrowser\Layout\LayoutCalculator;
 use Ekgame\PhpBrowser\Layout\LayoutNode;
 use Ekgame\PhpBrowser\Layout\Rectangle;
 use Ekgame\PhpBrowser\Style\Unit\TextDecoration;
+use Intervention\Image\Geometry\Factories\CircleFactory;
 use Intervention\Image\Geometry\Factories\LineFactory;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
@@ -71,7 +72,7 @@ class HtmlToImageRenderer
                 );
             }
         }
-        
+
         if ($node->getBackingNode()?->getTag() === 'hr') {
             $image->drawLine(function (LineFactory $line) use ($node, $offset_x, $offset_y) {
                 $line->color($node->getComputedStyles()->color);
@@ -84,6 +85,19 @@ class HtmlToImageRenderer
             });
 
             return;
+        }
+        
+        if ($node->getBackingNode()?->getTag() === 'li') {
+            $styles = $node->getComputedStyles();
+            $line_height = $styles->line_height->apply($styles->font_size);
+            $image->drawCircle(
+                $offset_x + $node->getX() - 16, 
+                $offset_y + $node->getY() + $line_height/2,
+                function (CircleFactory $draw) use ($node) {
+                    $draw->radius(3);
+                    $draw->background($node->getComputedStyles()->color);
+                }
+            );
         }
 
         if ($node->getText() !== null && trim($node->getText()) !== '') {
