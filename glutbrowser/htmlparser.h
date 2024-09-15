@@ -6,9 +6,9 @@
 // Note we want this dash literally (not as a range) so it must be first. Implementation defined.
 //              v
 #define Name "%[-:_.A-Za-z0-9]"
-#define AttrValue "%[-:_.A-Za-z0-9/]"
+#define AttrValue "%[-:_.;=#A-Za-z0-9/ ]"
 #define NameStartChar "%[-._A-Za-z]"
-#define TagContents "%[-:_.=A-Za-z0-9\'\"/ ]"
+#define TagContents "%[-:_.;=#A-Za-z0-9\'\"/ ]"
 
 #define Attr Name "=\"" AttrValue "\"%n"	// Attrs can use single or double quotes
 #define AttrAlt Name "='" AttrValue "'%n"	// We could use a set here instead of two separate production rules, but
@@ -18,7 +18,7 @@
 #define ETag "</" Name " >%n"					// Cannot have attributes
 #define EmptyElemTag "<" TagContents " />%n"	// Can have attributes
 
-#define Content "%[-:_.A-Za-z0-9 \n\t\r]%n"
+#define Content "%[^<]%n" // For now, match on anything but '<'
 
 // Not allowing dashes in comments, which is technically not compliant but whatever
 #define Comment "<!-- %*[:_A-Za-z0-9] -->%n"
@@ -162,8 +162,8 @@ attribute* create_attr(const char* k, const char* v)
 int parse_tag_attrs(tag* t, const char* tagContents)
 {
 	char buf[256]; // We are arbitrarily limiting tag content length to 256 chars
-	char keyBuf[64]; // And, keys/values to 64 chars. Don't @ me.
-	char valBuf[64];
+	char keyBuf[128];
+	char valBuf[128];
 	strcpy(buf, tagContents);
 
 	char* it = buf;
@@ -213,8 +213,11 @@ void parse_html(const char* input)
 			indent_level--;
 
 			if (strcmp(active_tag->type, buf)) {
-				printf("Expected closing tag </%s> but found </%s>", active_tag->type, buf);
-				return;
+				indent_level--;
+				active_tag = active_tag->parent;
+				// We are being generous about closing tag matching here
+				//printf("Expected closing tag </%s> but found </%s>", active_tag->type, buf);
+				//return;
 			}
 			active_tag = active_tag->parent;
 
@@ -247,7 +250,25 @@ void parse_html(const char* input)
 		}
 		else if (sscanf(input, EmptyElemTag, buf, &parsed) && parsed > 0) {
 			// Empty Elem Tags - <tag/>
-			printf("%.*s<%s/>\n", (indent_level > 16) ? 16 : indent_level, tabs, buf);
+			
+			// Make space for a new tag in the mem arena
+			tag* current_tag = (tag*)arena_head;
+			memset(current_tag, 0, sizeof(tag));
+			current_tag->parent = active_tag;
+			arena_head += sizeof(tag);
+
+			parse_tag_attrs(current_tag, buf);
+
+			if (active_tag->first_child) get_last_sibling(active_tag->first_child)->next_sibling = current_tag;
+			else active_tag->first_child = current_tag;
+
+			// Note that we've already stripped the tags at this point
+			printf("%.*s<%s/>", (indent_level > 16) ? 16 : indent_level, tabs, current_tag->type);
+			attribute* attr = current_tag->first_attribute;
+			while (attr) {
+				printf(" %s='%s'", attr->key, attr->value);
+				attr = attr->next;
+			} printf("\n");
 		}
 		else if (sscanf(input, Content, arena_head, &parsed) && parsed > 0) {
 			// Content?

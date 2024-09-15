@@ -13,16 +13,6 @@
 #include <ctype.h>
 #include <GL/freeglut.h>
 
-// TODO 1-char tag names are broken
-// TODO spaces in "Content" are broken
-const char* test_html = "<html><head></head><body>"
-	"<h1>This is a heading h1!</h1>"
-	"<h2>This is a heading h2!</h2>"
-	"<h3>This is a heading h3!</h3>"
-	"<p>This is a paragraph!</p>"
-	"<a href='http://example.com'>This is a link!</a>"
-"</body></html>";
-
 unsigned int modstate;
 int cur_key = -1;
 int cur_skey = -1;
@@ -140,7 +130,8 @@ void display(void)
 	int caret_x = 0;
 	int caret_y = win_height - 24;
 
-	assert(prev_tag(next_tag(iter)) == iter && "Bad tree traversal");
+	if (prev_tag(next_tag(iter)) != iter)
+		printf("Warning: Drawing an empty/bad tree!");
 
 	while (iter)
 	{
@@ -157,6 +148,8 @@ void display(void)
 	glutSwapBuffers();
 }
 
+char filebuffer[PAGE_SIZE * 16];
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -171,7 +164,15 @@ int main(int argc, char** argv)
 	glutSpecialFunc(skeypress);
 	glutSpecialUpFunc(skeyrelease);
 
-	parse_html(test_html);
+	FILE* fin;
+	if (argv[1]) {
+		fin = fopen(argv[1], "r");
+		size_t charsread = fread(filebuffer, 1, PAGE_SIZE * 16, fin);
+		filebuffer[charsread] = '\0';
+		parse_html(filebuffer);
+		fclose(fin);
+	}
+
 	glutMainLoop();
 	return 0;
 }
