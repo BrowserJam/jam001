@@ -137,6 +137,16 @@ class UserAgentStyleResolver implements StyleResolver
             $bag->display = Display::INLINE;
             $bag->font_style = FontStyle::ITALIC;
         });
+
+        $this->styles_by_tag['hr'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::BLOCK;
+            $bag->margin = new Margin(
+                top: new Measurement(0.5, SizeUnit::EM),
+                right: new Measurement(0, SizeUnit::PX),
+                bottom: new Measurement(0.5, SizeUnit::EM),
+                left: new Measurement(0, SizeUnit::PX),
+            );
+        });
     }
 
     public function resolve(DomNode $style): NodeStylesBag

@@ -71,6 +71,20 @@ class HtmlToImageRenderer
                 );
             }
         }
+        
+        if ($node->getBackingNode()?->getTag() === 'hr') {
+            $image->drawLine(function (LineFactory $line) use ($node, $offset_x, $offset_y) {
+                $line->color($node->getComputedStyles()->color);
+                $line->width(1);
+                $x = $offset_x + $node->getX();
+                $y = $offset_y + $node->getY() + $node->getHeight() / 2;
+                $w = $node->getWidth();
+                $line->from($x, $y);
+                $line->to($x + $w, $y);
+            });
+
+            return;
+        }
 
         if ($node->getText() !== null && trim($node->getText()) !== '') {
             if ($node->getComputedStyles()->text_decoration == TextDecoration::UNDERLINE) {
