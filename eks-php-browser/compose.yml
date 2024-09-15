@@ -13,7 +13,6 @@ services:
       - ./templates:/var/www/html/templates
     environment:
       - PHP_ERROR_REPORTING=E_ALL
-      - BASE_URL=http://localhost:8080/
 
 volumes:
   app-data:

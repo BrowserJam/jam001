@@ -72,6 +72,8 @@ class HtmlToNodeTreeParser
         throw new \RuntimeException('Unknown node type: ' . get_class($node));
     }
 
+    
+
     private function fixUnclosedTags(DomNode $node)
     {
         // The library i'm using doesn't handle auto-closing tags correctly.
