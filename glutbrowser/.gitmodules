@@ -1,3 +1,0 @@
-[submodule "freeglut"]
-	path = glutbrowser/freeglut
-	url = git@github.com:freeglut/freeglut.git
