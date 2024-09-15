@@ -1,0 +1,26 @@
+[package]
+name = "gosub_shared"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gosub Community <info@gosub.io>"]
+license = "MIT"
+
+[dependencies]
+chardet = "0.2.4"
+thiserror = "1.0.61"
+url = "2.5.2"
+anyhow = "1.0.87"
+lazy_static = "1.5.0"
+uuid = { version = "1.10.0", features = ["v4"] }
+rand = "0.9.0-alpha.1"
+chardetng = "0.1.17"
+encoding_rs = "0.8.34"
+
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+js-sys = "0.3.70"
+getrandom = { version = "0.2.15", features = ["js"] }
+web-sys = { version = "0.3.69", features = ["Performance", "Window"] }
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.20"

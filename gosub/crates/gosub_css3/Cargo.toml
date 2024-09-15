@@ -1,0 +1,14 @@
+[package]
+name = "gosub_css3"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gosub Community <info@gosub.io>"]
+license = "MIT"
+
+[dependencies]
+gosub_shared = { path = "../gosub_shared", features = [] }
+lazy_static = "1.5"
+log = "0.4.22"
+simple_logger = "5.0.0"
+anyhow = { version = "1.0.87", features = [] }
+colors-transform = "0.2.11"

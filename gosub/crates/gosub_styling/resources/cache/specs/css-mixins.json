@@ -1,0 +1,104 @@
+{
+  "spec": {
+    "title": "CSS Functions and Mixins Module",
+    "url": "https://drafts.csswg.org/css-mixins-1/"
+  },
+  "properties": [],
+  "atrules": [
+    {
+      "name": "@function",
+      "href": "https://drafts.csswg.org/css-mixins-1/#at-ruledef-function",
+      "descriptors": [
+        {
+          "name": "result",
+          "href": "https://drafts.csswg.org/css-mixins-1/#descdef-function-result",
+          "for": "@function",
+          "value": "<declaration-value>?",
+          "initial": "n/a (see prose)"
+        }
+      ],
+      "value": "@function <function-name> [ ( <function-parameter-list> ) ]? [ using ( <function-dependency-list> ) ]? [ returns <css-type> ]? { <declaration-rule-list> }"
+    }
+  ],
+  "selectors": [],
+  "values": [
+    {
+      "name": "<function-name>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-function-name",
+      "type": "type",
+      "value": "<dashed-ident>"
+    },
+    {
+      "name": "<function-parameter-list>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-function-parameter-list",
+      "type": "type",
+      "value": "<function-parameter>#"
+    },
+    {
+      "name": "<function-dependency-list>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-function-dependency-list",
+      "type": "type",
+      "value": "<function-parameter>#"
+    },
+    {
+      "name": "<function-parameter>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-function-parameter",
+      "type": "type",
+      "value": "<custom-property-name> <css-type>? [ : <declaration-value> ]?"
+    },
+    {
+      "name": "<css-type>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-css-type",
+      "type": "type",
+      "value": "<syntax-component> | <type()>"
+    },
+    {
+      "name": "<type()>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-type",
+      "type": "type",
+      "value": "type( <syntax> )"
+    },
+    {
+      "name": "<dashed-function>",
+      "prose": "A <dashed-function> is a functional notation whose function name starts with two dashes (U+002D HYPHEN-MINUS). Its syntax is:",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-dashed-function",
+      "type": "type"
+    },
+    {
+      "name": "<syntax-type>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax-type",
+      "type": "type",
+      "value": "angle | color | custom-ident | image | integer | length | length-percentage | number | percentage | resolution | string | time | url | transform-function"
+    },
+    {
+      "name": "<syntax-combinator>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax-combinator",
+      "type": "type",
+      "value": "'|'"
+    },
+    {
+      "name": "<syntax-multiplier>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax-multiplier",
+      "type": "type",
+      "value": "[ '#' | '+' ]"
+    },
+    {
+      "name": "<syntax-component-name>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax-component-name",
+      "type": "type",
+      "value": "'<' <syntax-type> '>' | <custom-ident>"
+    },
+    {
+      "name": "<syntax-component>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax-component",
+      "type": "type",
+      "value": "<syntax-component-name> <syntax-multiplier>? | '<' transform-list '>'"
+    },
+    {
+      "name": "<syntax>",
+      "href": "https://drafts.csswg.org/css-mixins-1/#typedef-syntax",
+      "type": "type",
+      "value": "'*' | <syntax-component> [ <syntax-combinator> <syntax-component> ]+"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[package]
+name = "gosub_webexecutor"
+version = "0.1.0"
+edition = "2021"
+authors = ["Gosub Community <info@gosub.io>"]
+license = "MIT"
+
+[dependencies]
+gosub_shared = { path = "../gosub_shared" }
+colored = "2.1.0"
+derive_more = { version = "1", features = ["from", "display"] }
+lazy_static = "1.5"
+thiserror = "1.0.61"
+anyhow = "1.0.87"
+paste = "1.0.15"
+
+[dev-dependencies]
+serde_json = "1.0.128"
+gosub_v8 = { path = "../gosub_v8" }
+gosub_webinterop = { path = "../gosub_webinterop" }
