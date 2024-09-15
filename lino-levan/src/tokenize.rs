@@ -1,6 +1,7 @@
 #[derive(Debug)]
 pub enum HTMLToken {
     Text(String),
+    Comment(String),
     OpenTag {
         tag: String,
         attributes: Vec<(String, String)>,
@@ -48,6 +49,11 @@ fn parse_tag(iterator: &mut std::iter::Peekable<std::str::Chars>) -> HTMLToken {
             unparsed_attributes.push(c);
             iterator.next();
         }
+    }
+
+    if tag.starts_with("!--") {
+        let comment = tag[3..].to_string() + &unparsed_attributes;
+        return HTMLToken::Comment(comment);
     }
 
     let mut attributes = vec![];

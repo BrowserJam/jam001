@@ -3,6 +3,7 @@ use crate::tokenize::HTMLToken;
 #[derive(Debug, Clone)]
 pub enum HTMLNode {
     Text(String),
+    Comment(String),
     Element {
         tag: String,
         attributes: Vec<(String, String)>,
@@ -25,6 +26,10 @@ fn parse_node(
             tokens.next();
             None
         }
+        Some(HTMLToken::Comment(text)) => {
+            tokens.next();
+            Some(HTMLNode::Comment(text.clone()))
+        }
         None => panic!("No more tokens to parse"),
     }
 }
@@ -35,7 +40,14 @@ fn parse_tag(
 ) -> HTMLNode {
     match tokens.next() {
         Some(HTMLToken::OpenTag { tag, attributes }) => {
-            if tag == "nextid" || tag == "!doctype" || tag == "meta" {
+            if tag == "nextid"
+                || tag == "!doctype"
+                || tag == "meta"
+                || tag == "link"
+                || tag == "br"
+                || tag == "img"
+                || tag == "input"
+            {
                 return HTMLNode::Element {
                     tag: tag.clone(),
                     attributes: attributes.clone(),
