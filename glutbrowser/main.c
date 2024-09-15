@@ -20,6 +20,7 @@ const char* test_html = "<html><head></head><body>"
 	"<h2>This is a heading h2!</h2>"
 	"<h3>This is a heading h3!</h3>"
 	"<p>This is a paragraph!</p>"
+	"<a href='http://example.com'>This is a link!</a>"
 "</body></html>";
 
 unsigned int modstate;
@@ -31,6 +32,7 @@ void draw_text(int x, int y, int font, rgb *color, const char* str)
 {
 	int line_height = 24;
 	glRasterPos2i(x, y);
+	glColor3f(((float)color->r) / 255.f, ((float)color->g) / 255.f, ((float)color->b) / 255.f);
 	while (*str) {
 		if (*str == '\n') {
 			y -= line_height;
@@ -38,7 +40,6 @@ void draw_text(int x, int y, int font, rgb *color, const char* str)
 			str++;
 			continue;
 		}
-		glColor3f(((float)color->r) / 255.f, ((float)color->g) / 255.f, ((float)color->b) / 255.f);
 		glutBitmapCharacter(font, *str++);
 	}
 }
@@ -124,7 +125,7 @@ void display(void)
 	while (iter)
 	{
 		if (iter->content) {
-			const style* s = get_default_style_by_name(iter->name);
+			const style* s = get_default_style_by_name(iter->type);
 			draw_text(caret_x, caret_y, s->font, s->color, iter->content);
 			caret_y -= 24;
 		}
@@ -148,7 +149,7 @@ int main(int argc, char** argv)
 	glutSpecialFunc(skeypress);
 	glutSpecialUpFunc(skeyrelease);
 
-	parseHTML(test_html);
+	parse_html(test_html);
 	glutMainLoop();
 	return 0;
 }

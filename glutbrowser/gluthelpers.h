@@ -16,9 +16,10 @@ const rgb* bg_color = &white;
 const style fallback_style = { .name = "fallback", GLUT_BITMAP_8_BY_13, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero };
 
 const style default_styles[] = {
-	{.name = "h1", GLUT_BITMAP_TIMES_ROMAN_24, .color = &red, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
+	{.name = "h1", GLUT_BITMAP_TIMES_ROMAN_24, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
 	{.name = "h2", GLUT_BITMAP_HELVETICA_18, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
-	{.name = "h3", GLUT_BITMAP_9_BY_15, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero}
+	{.name = "h3", GLUT_BITMAP_9_BY_15, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero},
+	{.name = "a", GLUT_BITMAP_8_BY_13, .color = &black, .margin = &box_zero, .border = &box_zero, .padding = &box_zero}
 };
 
 const style* get_default_style_by_name(const char* name) {
