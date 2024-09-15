@@ -1,6 +1,6 @@
-# GLUTBrowser - Made with only OpenGL and GLUT using C*
+# GLUTBrowser - Made with only OpenGL and GLUT using C
 
-*For now, I am using only C but may switch to C-style C++*
+This was a browser made in a weekend (really, 1 and a half days) for Browser Jam. The html parser was made entirely from scratch and is not very compliant (to say the least.) Line breaks are handled poorly, but you can render some basic web pages. Mouse input is working, but you unfortunately can't navigate because I don't have web requests working yet.
 
 ## Building (Windows)
 
@@ -11,4 +11,11 @@ With the repo checked out, from this directory, run
 git submodule update;
 cd freeglut; cmake .; cmake --build .; cd ..;
 cmake --preset=win-msvc-debug .;
+```
+
+## Loading a page
+
+You must call the browser with the html filename as the first argument, e.g.
+```
+.\glutbrowser.exe "C:\\Users\\<user>\\Downloads\\The World Wide Web project.htm"
 ```
