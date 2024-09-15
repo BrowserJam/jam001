@@ -1,0 +1,7 @@
+[language-server.clangd]
+args = ["--background-index", "--compile-commands-dir=out", "--clang-tidy", "--all-scopes-completion"]
+
+[[language]]
+name = "cpp"
+auto-format = true
+

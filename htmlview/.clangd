@@ -1,0 +1,2 @@
+CompileFlags:
+  Add: ["-target", "wasm32-unknown-emscripten", "-fignore-exceptions", "-fvisibility=default", "-mllvm", "-combiner-global-alias-analysis=false", "-mllvm", "-enable-emscripten-sjlj", "-mllvm", "-disable-lsr", "-DEMSCRIPTEN", "--sysroot=J:\emsdk\upstream\emscripten\cache\sysroot", "-Xclang", "-iwithsysroot/include\fakesdl", "-Xclang", "-iwithsysroot/include\compat"]
