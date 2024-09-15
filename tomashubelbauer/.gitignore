@@ -1,0 +1,11 @@
+# NPM
+node_modules
+
+# Bun
+bun.lockb
+
+# Caches
+fetchCached.ts.*.html
+
+# Outputs
+index

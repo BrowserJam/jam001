@@ -1,0 +1,13 @@
+{
+  "name": "leveret",
+  "type": "module",
+  "author": {
+    "name": "Tomas Hubelbauer"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "latest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
