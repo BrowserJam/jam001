@@ -4,6 +4,7 @@ namespace Ekgame\PhpBrowser\Style;
 
 use Ekgame\PhpBrowser\DomNode;
 use Ekgame\PhpBrowser\Style\Unit\Display;
+use Ekgame\PhpBrowser\Style\Unit\FontStyle;
 use Ekgame\PhpBrowser\Style\Unit\FontWeight;
 use Ekgame\PhpBrowser\Style\Unit\Margin;
 use Ekgame\PhpBrowser\Style\Unit\Measurement;
@@ -40,6 +41,18 @@ class UserAgentStyleResolver implements StyleResolver
             $bag->font_weight = FontWeight::BOLD;
         });
 
+        $this->styles_by_tag['h2'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::BLOCK;
+            $bag->font_size = new Measurement(1.5, SizeUnit::EM);
+            $bag->margin = new Margin(
+                top: new Measurement(0.83, SizeUnit::EM),
+                right: new Measurement(0, SizeUnit::PX),
+                bottom: new Measurement(0.83, SizeUnit::EM),
+                left: new Measurement(0, SizeUnit::PX),
+            );
+            $bag->font_weight = FontWeight::BOLD;
+        });
+
         $this->styles_by_tag['p'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
             $bag->display = Display::BLOCK;
             $bag->font_size = new Measurement(1, SizeUnit::EM);
@@ -65,6 +78,10 @@ class UserAgentStyleResolver implements StyleResolver
                 bottom: new Measurement(0, SizeUnit::PX),
                 left: new Measurement(40, SizeUnit::PX),
             );
+        });
+
+        $this->styles_by_tag['l1'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::BLOCK;
         });
 
         $this->styles_by_tag['a'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
@@ -99,6 +116,26 @@ class UserAgentStyleResolver implements StyleResolver
 
         $this->styles_by_tag['#text'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
             $bag->display = Display::INLINE;
+        });
+
+        $this->styles_by_tag['address'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::BLOCK;
+            $bag->font_style = FontStyle::ITALIC;
+        });
+
+        $this->styles_by_tag['strong'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::INLINE;
+            $bag->font_weight = FontWeight::BOLD;
+        });
+
+        $this->styles_by_tag['b'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::INLINE;
+            $bag->font_weight = FontWeight::BOLD;
+        });
+
+        $this->styles_by_tag['i'] = NodeStylesBag::create(function (NodeStylesBag $bag) {
+            $bag->display = Display::INLINE;
+            $bag->font_style = FontStyle::ITALIC;
         });
     }
 
