@@ -64,7 +64,7 @@ class HtmlToNodeTreeParser
             }
 
             return new DomNode('#text', [
-                'text' => $node->text(),
+                'text' => html_entity_decode($node->text()),
             ]);
         } 
         else if ($node instanceof HtmlNode) {
