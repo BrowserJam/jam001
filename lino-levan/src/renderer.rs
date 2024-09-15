@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::sync::{LazyLock, Mutex};
 
 use skia_bindings::SkFont;
@@ -5,29 +6,24 @@ use skia_safe::{Color, Font, FontMgr, FontStyle, Handle, Paint, TextBlob};
 
 use crate::parse::HTMLNode;
 
-static FONT_12_PT: LazyLock<Mutex<Handle<SkFont>>> = LazyLock::new(|| {
-    Mutex::new(Font::from_typeface(
-        FontMgr::new()
-            .legacy_make_typeface(None, FontStyle::default())
-            .unwrap(),
-        32.0,
-    ))
-});
-static FONT_32_PT: LazyLock<Mutex<Handle<SkFont>>> = LazyLock::new(|| {
-    Mutex::new(Font::from_typeface(
-        FontMgr::new()
-            .legacy_make_typeface(None, FontStyle::default())
-            .unwrap(),
-        64.0,
-    ))
-});
+static FONT_CACHE: LazyLock<Mutex<HashMap<i32, Handle<SkFont>>>> =
+    LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn font_12_pt() -> Handle<SkFont> {
-    FONT_12_PT.lock().unwrap().clone()
-}
-
-fn font_32_pt() -> Handle<SkFont> {
-    FONT_32_PT.lock().unwrap().clone()
+fn get_font(size: i32) -> Handle<SkFont> {
+    let mut map = FONT_CACHE.lock().unwrap();
+    match map.get(&size) {
+        Some(font) => font.clone(),
+        None => {
+            let font = Font::from_typeface(
+                FontMgr::new()
+                    .legacy_make_typeface(None, FontStyle::default())
+                    .unwrap(),
+                size as f32 * 2.0,
+            );
+            map.insert(size, font.clone());
+            font
+        }
+    }
 }
 
 fn is_whitespace(str: String) -> bool {
@@ -97,7 +93,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     100.0,
                                     0.0,
                                     &paint,
-                                    &font_32_pt(),
+                                    &get_font(32),
                                 );
                             }
                             HTMLNode::Element {
@@ -117,7 +113,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     150.0,
                                     0.0,
                                     &blue_paint,
-                                    &font_32_pt(),
+                                    &get_font(32),
                                 );
                             }
                             _ => {
@@ -141,7 +137,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     50.0,
                                     0.0,
                                     &paint,
-                                    &font_12_pt(),
+                                    &get_font(16),
                                 );
                             }
                             HTMLNode::Element {
@@ -161,7 +157,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     50.0,
                                     0.0,
                                     &blue_paint,
-                                    &font_12_pt(),
+                                    &get_font(16),
                                 );
                             }
                             _ => {
@@ -188,7 +184,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     50.0,
                                     0.0,
                                     &paint,
-                                    &font_12_pt(),
+                                    &get_font(16),
                                 );
                             }
                             HTMLNode::Element {
@@ -208,7 +204,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                     50.0,
                                     0.0,
                                     &blue_paint,
-                                    &font_12_pt(),
+                                    &get_font(16),
                                 );
                             }
                             _ => {
@@ -247,7 +243,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                                 50.0,
                                                 0.0,
                                                 &paint,
-                                                &font_12_pt(),
+                                                &get_font(16),
                                             );
                                         }
                                         HTMLNode::Element {
@@ -267,7 +263,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                                 50.0,
                                                 0.0,
                                                 &blue_paint,
-                                                &font_12_pt(),
+                                                &get_font(16),
                                             );
                                         }
                                         _ => {}
@@ -297,7 +293,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                                 50.0,
                                                 64.0,
                                                 &paint,
-                                                &font_12_pt(),
+                                                &get_font(16),
                                             );
                                         }
                                         HTMLNode::Element {
@@ -317,7 +313,7 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                                                 50.0,
                                                 64.0,
                                                 &blue_paint,
-                                                &font_12_pt(),
+                                                &get_font(16),
                                             );
                                         }
                                         _ => {}
