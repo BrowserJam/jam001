@@ -332,6 +332,15 @@ pub fn render_frame(nodes: &Vec<HTMLNode>, canvas: &skia_safe::canvas::Canvas) {
                         }
                     }
                 }
+                "html" => {
+                    render_frame(children, canvas);
+                }
+                "div" => {
+                    render_frame(children, canvas);
+                }
+                "!doctype" => {
+                    // no-op
+                }
                 _ => {
                     println!("Unknown tag: {}", tag);
                 }
