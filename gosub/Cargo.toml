@@ -1,0 +1,97 @@
+[package]
+name = "gosub_engine"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79"
+authors = ["Gosub Community <info@gosub.io>"]
+description = "An HTML5 browser engine written in Rust."
+license = "MIT"
+repository = "https://github.com/gosub-browser/gosub-engine"
+readme = "README.md"
+keywords = ["html5", "parser", "browser", "Rust", "DOM"]
+
+[workspace]
+members = [
+    "crates/*"
+]
+
+[[example]]
+name = "html5-parser"
+
+[[bench]]
+name = "tree_iterator"
+harness = false
+
+[[bench]]
+name = "bytestream"
+harness = false
+
+[dependencies]
+gosub_shared = { path = "./crates/gosub_shared", features = [] }
+gosub_config = { path = "./crates/gosub_config", features = [] }
+gosub_html5 = { path = "./crates/gosub_html5", features = [] }
+gosub_css3 = { path = "./crates/gosub_css3", features = [] }
+gosub_styling = { path = "./crates/gosub_styling", features = [] }
+gosub_jsapi = { path = "./crates/gosub_jsapi", features = [] }
+gosub_testing = { path = "./crates/gosub_testing", features = [] }
+gosub_rendering = { path = "crates/gosub_render_utils", features = [] }
+gosub_renderer = { path = "./crates/gosub_renderer", features = [] }
+gosub_render_backend = { path = "./crates/gosub_render_backend", features = [] }
+gosub_vello = { path = "./crates/gosub_vello", features = [] }
+gosub_useragent = { path = "./crates/gosub_useragent", features = [] }
+gosub_taffy = { path = "./crates/gosub_taffy", features = [] }
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
+derive_more = { version = "1", features = ["from"] }
+lazy_static = "1.5"
+regex = "1"
+anyhow = "1.0.87"
+walkdir = "2.5"
+clap = { version = "4.5.15", features = ["derive"] }
+simple_logger = "5.0.0"
+cookie = { version = "0.18.1", features = ["secure", "private"] }
+url = "2.5.2"
+nom = "7.1.3"
+nom-trace = "0.2.1"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+test-case = "3.3.1"
+
+[features]
+# Enables extended debugging information during parsing.
+debug_parser = []
+debug_parser_verbose = []
+
+
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+web-sys = "0.3.69"
+js-sys = "0.3.70"
+console_log = "1.0.0"
+console_error_panic_hook = "0.1.7"
+wasm-bindgen = "0.2.93"
+wasm-bindgen-futures = "0.4.42"
+getrandom = { version = "0.2.15", features = ["js"] }
+
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+gosub_v8 = { path = "./crates/gosub_v8", features = [] }
+gosub_webexecutor = { path = "./crates/gosub_webexecutor", features = [] }
+gosub_net = { path = "./crates/gosub_net", features = [] }
+ureq = "2.10.1"
+futures = "0.3.30"
+
+[profile.release]
+lto = "fat"
+opt-level = 3
+codegen-units = 1
+#rustflags = ["-C", "target-cpu=native"] # Currently unstable and it can cause problems on older CPUs (don't have newer CPU instructions).
+
+[profile.bench]
+lto = "fat"
+opt-level = 3
+codegen-units = 1
+
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]

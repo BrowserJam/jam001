@@ -1,0 +1,39 @@
+{
+  "spec": {
+    "title": "CSS Grid Layout Module Level 3",
+    "url": "https://drafts.csswg.org/css-grid-3/"
+  },
+  "properties": [
+    {
+      "name": "grid-template-columns",
+      "newValues": "masonry",
+      "initial": "none",
+      "appliesTo": "grid containers",
+      "inherited": "no",
+      "percentages": "refer to corresponding dimension of the content area",
+      "computedValue": "the keyword none or the keyword masonry or a [[computed track list]]",
+      "animationType": "see CSS Grid Level 2",
+      "styleDeclaration": [
+        "grid-template-columns",
+        "gridTemplateColumns"
+      ]
+    },
+    {
+      "name": "grid-template-rows",
+      "newValues": "masonry",
+      "initial": "none",
+      "appliesTo": "grid containers",
+      "inherited": "no",
+      "percentages": "refer to corresponding dimension of the content area",
+      "computedValue": "the keyword none or the keyword masonry or a [[computed track list]]",
+      "animationType": "see CSS Grid Level 2",
+      "styleDeclaration": [
+        "grid-template-rows",
+        "gridTemplateRows"
+      ]
+    }
+  ],
+  "atrules": [],
+  "selectors": [],
+  "values": []
+}

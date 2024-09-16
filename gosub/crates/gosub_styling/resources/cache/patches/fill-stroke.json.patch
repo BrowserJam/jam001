@@ -1,0 +1,98 @@
+From c72b6be06992722d6ea75c9f0a161ef873f7b6fd Mon Sep 17 00:00:00 2001
+From: Francois Daoust <fd@tidoust.net>
+Date: Mon, 22 Apr 2024 07:39:29 +0200
+Subject: [PATCH] Patch not-yet-up-to-date fill-stroke spec properties
+
+The "<'background'> with modifications" value for the `fill` and `stroke`
+properties is not proper CSS grammar. Dropping the definitions means we'll fall
+back on the SVG ones for now. Tracked in:
+https://github.com/w3c/csswg-drafts/issues/7285
+
+The patch also fixed a regression since SVG Strokes or SVG2 for the
+`stroke-width`, `stroke-dasharray` and `stroke-dashoffset` properties that
+should accept unitless values. Tracked in:
+https://github.com/w3c/csswg-drafts/issues/3057
+---
+ ed/css/fill-stroke.json | 38 +++-----------------------------------
+ 1 file changed, 3 insertions(+), 35 deletions(-)
+
+diff --git a/ed/css/fill-stroke.json b/ed/css/fill-stroke.json
+index f92b290ff..1a9c601fa 100644
+--- a/ed/css/fill-stroke.json
++++ b/ed/css/fill-stroke.json
+@@ -200,22 +200,6 @@
+         "fillRepeat"
+       ]
+     },
+-    {
+-      "name": "fill",
+-      "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-fill",
+-      "value": "<'background'> with modifications",
+-      "initial": "See individual properties",
+-      "appliesTo": "See individual properties",
+-      "inherited": "See individual properties",
+-      "percentages": "N/A",
+-      "computedValue": "See individual properties",
+-      "canonicalOrder": "per grammar",
+-      "animationType": "See individual properties",
+-      "media": "visual",
+-      "styleDeclaration": [
+-        "fill"
+-      ]
+-    },
+     {
+       "name": "fill-opacity",
+       "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-fill-opacity",
+@@ -236,7 +220,7 @@
+     {
+       "name": "stroke-width",
+       "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-stroke-width",
+-      "value": "<length-percentage>#",
++      "value": "[<length-percentage> | <number>]#",
+       "initial": "1px",
+       "appliesTo": "text and SVG shapes",
+       "inherited": "yes",
+@@ -437,7 +421,7 @@
+     {
+       "name": "stroke-dasharray",
+       "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-stroke-dasharray",
+-      "value": "none | <length-percentage>+#",
++      "value": "none | [<length-percentage> | <number>]+#",
+       "initial": "none",
+       "appliesTo": "text and SVG shapes",
+       "inherited": "yes",
+@@ -470,7 +454,7 @@
+     {
+       "name": "stroke-dashoffset",
+       "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-stroke-dashoffset",
+-      "value": "<length-percentage>",
++      "value": "<length-percentage> | <number>",
+       "initial": "0",
+       "appliesTo": "text and SVG shapes",
+       "inherited": "yes",
+@@ -710,22 +694,6 @@
+         "strokeRepeat"
+       ]
+     },
+-    {
+-      "name": "stroke",
+-      "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-stroke",
+-      "value": "<'background'> with modifications",
+-      "initial": "See individual properties",
+-      "appliesTo": "See individual properties",
+-      "inherited": "See individual properties",
+-      "percentages": "N/A",
+-      "computedValue": "See individual properties",
+-      "canonicalOrder": "per grammar",
+-      "animationType": "See individual properties",
+-      "media": "visual",
+-      "styleDeclaration": [
+-        "stroke"
+-      ]
+-    },
+     {
+       "name": "stroke-opacity",
+       "href": "https://drafts.fxtf.org/fill-stroke-3/#propdef-stroke-opacity",
+-- 
+2.37.1.windows.1
+

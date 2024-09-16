@@ -1,0 +1,601 @@
+{
+  "spec": {
+    "title": "Scalable Vector Graphics (SVG) 2",
+    "url": "https://svgwg.org/svg2-draft/"
+  },
+  "properties": [
+    {
+      "name": "cx",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#CxProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘circle’ and ‘ellipse’ elements",
+      "inherited": "no",
+      "percentages": "refer to the width of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "cx"
+      ]
+    },
+    {
+      "name": "cy",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#CyProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘circle’ and ‘ellipse’ elements",
+      "inherited": "no",
+      "percentages": "refer to the height of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "cy"
+      ]
+    },
+    {
+      "name": "r",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#RProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘circle’ element",
+      "inherited": "no",
+      "percentages": "refer to the normalized diagonal of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "r"
+      ]
+    },
+    {
+      "name": "rx",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#RxProperty",
+      "value": "<length-percentage> | auto",
+      "initial": "auto",
+      "appliesTo": "‘ellipse’, ‘rect’ elements",
+      "inherited": "no",
+      "percentages": "refer to the width of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "rx"
+      ]
+    },
+    {
+      "name": "ry",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#RyProperty",
+      "value": "<length-percentage> | auto",
+      "initial": "auto",
+      "appliesTo": "‘ellipse’, ‘rect’",
+      "inherited": "no",
+      "percentages": "refer to the height of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animatableType": "by computed value",
+      "styleDeclaration": [
+        "ry"
+      ]
+    },
+    {
+      "name": "x",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#XProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘svg’, ‘rect’, ‘image’, ‘foreignObject’ elements",
+      "inherited": "no",
+      "percentages": "refer to the width of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "x"
+      ]
+    },
+    {
+      "name": "y",
+      "href": "https://svgwg.org/svg2-draft/geometry.html#YProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘svg’, ‘rect’, ‘image’, ‘foreignObject’ elements",
+      "inherited": "no",
+      "percentages": "refer to the height of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "y"
+      ]
+    },
+    {
+      "name": "vector-effect",
+      "href": "https://svgwg.org/svg2-draft/coords.html#VectorEffectProperty",
+      "value": "none | non-scaling-stroke | non-scaling-size | non-rotation | fixed-position",
+      "initial": "none",
+      "appliesTo": "graphics elements and ‘use’",
+      "inherited": "no",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "vector-effect",
+        "vectorEffect"
+      ]
+    },
+    {
+      "name": "d",
+      "href": "https://svgwg.org/svg2-draft/paths.html#DProperty",
+      "value": "none | <string>",
+      "initial": "none",
+      "appliesTo": "‘path’",
+      "inherited": "no",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "See prose",
+      "styleDeclaration": [
+        "d"
+      ]
+    },
+    {
+      "name": "inline-size",
+      "href": "https://svgwg.org/svg2-draft/text.html#InlineSizeProperty",
+      "value": "auto | <length-percentage>",
+      "initial": "auto",
+      "appliesTo": "‘text’ elements",
+      "inherited": "no",
+      "percentages": "Refer to the width (for horizontal text) or height (for vertical text) of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "inline-size",
+        "inlineSize"
+      ]
+    },
+    {
+      "name": "shape-inside",
+      "href": "https://svgwg.org/svg2-draft/text.html#ShapeInsideProperty",
+      "value": "auto | [ <basic-shape> | <uri> ]+",
+      "initial": "auto",
+      "appliesTo": "‘text’ elements",
+      "inherited": "no",
+      "percentages": "Relative to the ‘viewBox’",
+      "media": "visual",
+      "computedValue": "computed lengths for <shape>, the absolute URI for <uri>, otherwise as specified",
+      "animationType": "See Interpolation of Basic Shapes",
+      "styleDeclaration": [
+        "shape-inside",
+        "shapeInside"
+      ]
+    },
+    {
+      "name": "shape-subtract",
+      "href": "https://svgwg.org/svg2-draft/text.html#ShapesubtractProperty",
+      "value": "none | [ <basic-shape>| <uri> ]+",
+      "initial": "none",
+      "appliesTo": "‘text’ elements",
+      "inherited": "no",
+      "percentages": "Relative to the ‘viewBox’",
+      "media": "visual",
+      "computedValue": "computed lengths for any <basic-shape>, the absolute URI for <uri>, otherwise as specified",
+      "animationType": "See Interpolation of Basic Shapes",
+      "styleDeclaration": [
+        "shape-subtract",
+        "shapeSubtract"
+      ]
+    },
+    {
+      "name": "shape-margin",
+      "href": "https://svgwg.org/svg2-draft/text.html#ShapeMarginProperty",
+      "value": "<length-percentage>",
+      "initial": "0",
+      "appliesTo": "‘text’ elements",
+      "inherited": "no",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "an absolute length",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "shape-margin",
+        "shapeMargin"
+      ]
+    },
+    {
+      "name": "text-anchor",
+      "href": "https://svgwg.org/svg2-draft/text.html#TextAnchorProperty",
+      "value": "start | middle | end",
+      "initial": "start",
+      "appliesTo": "text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "text-anchor",
+        "textAnchor"
+      ]
+    },
+    {
+      "name": "fill",
+      "href": "https://svgwg.org/svg2-draft/painting.html#FillProperty",
+      "value": "<paint>",
+      "initial": "black",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified, but with <color> values computed and <url> values made absolute",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "fill"
+      ]
+    },
+    {
+      "name": "fill-rule",
+      "href": "https://svgwg.org/svg2-draft/painting.html#FillRuleProperty",
+      "value": "nonzero | evenodd",
+      "initial": "nonzero",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "fill-rule",
+        "fillRule"
+      ]
+    },
+    {
+      "name": "fill-opacity",
+      "href": "https://svgwg.org/svg2-draft/painting.html#FillOpacityProperty",
+      "value": "<'opacity'>",
+      "initial": "1",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "the specified value converted to a number, clamped to the range [0,1]",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "fill-opacity",
+        "fillOpacity"
+      ]
+    },
+    {
+      "name": "stroke",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeProperty",
+      "value": "<paint>",
+      "initial": "none",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified, but with <color> values computed and <url> values made absolute",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "stroke"
+      ]
+    },
+    {
+      "name": "stroke-opacity",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeOpacityProperty",
+      "value": "<'opacity'>",
+      "initial": "1",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "the specified value converted to a number, clamped to the range [0,1]",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "stroke-opacity",
+        "strokeOpacity"
+      ]
+    },
+    {
+      "name": "stroke-width",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeWidthProperty",
+      "value": "<length-percentage> | <number>",
+      "initial": "1px",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "refer to the normalized diagonal of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage, numbers converted to absolute lengths first",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "stroke-width",
+        "strokeWidth"
+      ]
+    },
+    {
+      "name": "stroke-linecap",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeLinecapProperty",
+      "value": "butt | round | square",
+      "initial": "butt",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "stroke-linecap",
+        "strokeLinecap"
+      ]
+    },
+    {
+      "name": "stroke-linejoin",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeLinejoinProperty",
+      "value": "miter | miter-clip | round | bevel | arcs",
+      "initial": "miter",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "stroke-linejoin",
+        "strokeLinejoin"
+      ]
+    },
+    {
+      "name": "stroke-miterlimit",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeMiterlimitProperty",
+      "value": "<number>",
+      "initial": "4",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "stroke-miterlimit",
+        "strokeMiterlimit"
+      ]
+    },
+    {
+      "name": "stroke-dasharray",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeDasharrayProperty",
+      "value": "none | <dasharray>",
+      "initial": "none",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "refer to the normalized diagonal of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "as comma separated list of absolute lengths or percentages, numbers converted to absolute lengths first, or keyword specified",
+      "animationType": "See prose",
+      "styleDeclaration": [
+        "stroke-dasharray",
+        "strokeDasharray"
+      ]
+    },
+    {
+      "name": "stroke-dashoffset",
+      "href": "https://svgwg.org/svg2-draft/painting.html#StrokeDashoffsetProperty",
+      "value": "<length-percentage> | <number>",
+      "initial": "0",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "refer to the normalized diagonal of the current SVG viewport (see Units)",
+      "media": "visual",
+      "computedValue": "an absolute length or percentage, numbers converted to absolute lengths first",
+      "animationType": "by computed value",
+      "styleDeclaration": [
+        "stroke-dashoffset",
+        "strokeDashoffset"
+      ]
+    },
+    {
+      "name": "marker-start",
+      "href": "https://svgwg.org/svg2-draft/painting.html#MarkerStartProperty",
+      "value": "none | <marker-ref>",
+      "initial": "none",
+      "appliesTo": "shapes",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified, but with <url> values (that are part of a <marker-ref>) made absolute",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "marker-start",
+        "markerStart"
+      ]
+    },
+    {
+      "name": "marker-mid",
+      "href": "https://svgwg.org/svg2-draft/painting.html#MarkerMidProperty",
+      "value": "none | <marker-ref>",
+      "initial": "none",
+      "appliesTo": "shapes",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified, but with <url> values (that are part of a <marker-ref>) made absolute",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "marker-mid",
+        "markerMid"
+      ]
+    },
+    {
+      "name": "marker-end",
+      "href": "https://svgwg.org/svg2-draft/painting.html#MarkerEndProperty",
+      "value": "none | <marker-ref>",
+      "initial": "none",
+      "appliesTo": "shapes",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified, but with <url> values (that are part of a <marker-ref>) made absolute",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "marker-end",
+        "markerEnd"
+      ]
+    },
+    {
+      "name": "marker",
+      "href": "https://svgwg.org/svg2-draft/painting.html#MarkerProperty",
+      "value": "none | <marker-ref>",
+      "initial": "not defined for shorthand properties",
+      "appliesTo": "shapes",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "see individual properties",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "marker"
+      ]
+    },
+    {
+      "name": "paint-order",
+      "href": "https://svgwg.org/svg2-draft/painting.html#PaintOrderProperty",
+      "value": "normal | [ fill || stroke || markers ]",
+      "initial": "normal",
+      "appliesTo": "shapes and text content elements",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "paint-order",
+        "paintOrder"
+      ]
+    },
+    {
+      "name": "color-interpolation",
+      "href": "https://svgwg.org/svg2-draft/painting.html#ColorInterpolationProperty",
+      "value": "auto | sRGB | linearRGB",
+      "initial": "sRGB",
+      "appliesTo": "container elements, graphics elements, gradient elements, ‘use’ and ‘animate’",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "color-interpolation",
+        "colorInterpolation"
+      ]
+    },
+    {
+      "name": "shape-rendering",
+      "href": "https://svgwg.org/svg2-draft/painting.html#ShapeRenderingProperty",
+      "value": "auto | optimizeSpeed | crispEdges | geometricPrecision",
+      "initial": "auto",
+      "appliesTo": "shapes",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "shape-rendering",
+        "shapeRendering"
+      ]
+    },
+    {
+      "name": "text-rendering",
+      "href": "https://svgwg.org/svg2-draft/painting.html#TextRenderingProperty",
+      "value": "auto | optimizeSpeed | optimizeLegibility | geometricPrecision",
+      "initial": "auto",
+      "appliesTo": "‘text’",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "text-rendering",
+        "textRendering"
+      ]
+    },
+    {
+      "name": "image-rendering",
+      "href": "https://svgwg.org/svg2-draft/painting.html#ImageRenderingProperty",
+      "value": "auto | optimizeQuality | optimizeSpeed",
+      "initial": "auto",
+      "appliesTo": "images",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "image-rendering",
+        "imageRendering"
+      ]
+    },
+    {
+      "name": "pointer-events",
+      "href": "https://svgwg.org/svg2-draft/interact.html#PointerEventsProperty",
+      "value": "auto | bounding-box | visiblePainted | visibleFill | visibleStroke | visible | painted | fill | stroke | all | none",
+      "initial": "auto",
+      "appliesTo": "container elements, graphics elements and ‘use’",
+      "inherited": "yes",
+      "percentages": "N/A",
+      "media": "visual",
+      "computedValue": "as specified",
+      "animationType": "discrete",
+      "styleDeclaration": [
+        "pointer-events",
+        "pointerEvents"
+      ]
+    },
+    {
+      "name": "stop-color",
+      "href": "https://svgwg.org/svg2-draft/pservers.html#StopColorProperty",
+      "styleDeclaration": [
+        "stop-color",
+        "stopColor"
+      ]
+    },
+    {
+      "name": "stop-opacity",
+      "href": "https://svgwg.org/svg2-draft/pservers.html#StopOpacityProperty",
+      "styleDeclaration": [
+        "stop-opacity",
+        "stopOpacity"
+      ]
+    }
+  ],
+  "atrules": [],
+  "selectors": [],
+  "values": [
+    {
+      "name": "<points>",
+      "value": "[ <number>+ ]#",
+      "href": "https://svgwg.org/svg2-draft/shapes.html#DataTypePoints",
+      "type": "type"
+    },
+    {
+      "name": "<paint>",
+      "value": "none | <color> | <url> [none | <color>]? | context-fill | context-stroke",
+      "href": "https://svgwg.org/svg2-draft/painting.html#DataTypePaint",
+      "type": "type"
+    },
+    {
+      "name": "<dasharray>",
+      "value": "[ [ <length-percentage> | <number> ]+ ]#",
+      "href": "https://svgwg.org/svg2-draft/painting.html#DataTypeDasharray",
+      "type": "type"
+    },
+    {
+      "name": "<marker-ref>",
+      "value": "<url>",
+      "href": "https://svgwg.org/svg2-draft/painting.html#DataTypeMarkerRef",
+      "type": "type"
+    }
+  ]
+}

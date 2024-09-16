@@ -1,0 +1,21 @@
+table > caption {
+    width: 100%;
+}
+
+table tr {
+    display: flex;
+    flex-direction: row;
+}
+
+body {
+    font-family: Roboto, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+    background-color: #00aced;
+}
+
+a {
+    color: #ffffff !important;
+    text-decoration: none;
+}
